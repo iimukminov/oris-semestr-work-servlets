@@ -9,9 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee67491f-be1d-4ef3-ad2c-4e87fea6b3a4" name="Changes" comment="Add AuthenticationFilter to check user authentication">
+    <list default="true" id="ee67491f-be1d-4ef3-ad2c-4e87fea6b3a4" name="Changes" comment="Add StaffAuthorizationFilter and AdminAuthorizationFilter for role-based access control">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/controller/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/controller/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/filter/AdminAuthorizationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/filter/AdminAuthorizationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/filter/StaffAuthorizationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/filter/StaffAuthorizationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/base.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/base.ftl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -248,7 +250,7 @@
       <workItem from="1761474855077" duration="43000" />
       <workItem from="1761474902837" duration="45000" />
       <workItem from="1761474955797" duration="14381000" />
-      <workItem from="1761508180837" duration="2923000" />
+      <workItem from="1761508180837" duration="5552000" />
     </task>
     <task id="LOCAL-00001" summary="git commit -m &quot;Add basic FTL pages for project initialization&#10;&#10;- Create authentication templates (login, sign_up)&#10;- Add base FTL template (base.ftl)&#10;- Configure Maven and servlet settings&#10;- Include CSS styles for pages&quot;">
       <option name="closed" value="true" />
@@ -362,7 +364,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761509618327</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Add StaffAuthorizationFilter and AdminAuthorizationFilter for role-based access control">
+      <option name="closed" value="true" />
+      <created>1761511349266</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1761511349266</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -409,6 +419,7 @@
     <MESSAGE value="Refactor Employee: change role from String to Role enum" />
     <MESSAGE value="Add EncodingFilter for UTF-8 request and response" />
     <MESSAGE value="Add AuthenticationFilter to check user authentication" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add AuthenticationFilter to check user authentication" />
+    <MESSAGE value="Add StaffAuthorizationFilter and AdminAuthorizationFilter for role-based access control" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add StaffAuthorizationFilter and AdminAuthorizationFilter for role-based access control" />
   </component>
 </project>

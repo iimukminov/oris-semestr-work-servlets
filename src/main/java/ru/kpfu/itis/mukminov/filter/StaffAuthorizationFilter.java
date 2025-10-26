@@ -1,5 +1,7 @@
 package ru.kpfu.itis.mukminov.filter;
 
+import ru.kpfu.itis.mukminov.dto.EmployeeDto;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -23,7 +25,7 @@ public class StaffAuthorizationFilter implements Filter {
         if (session == null) {
             response.sendRedirect(request.getContextPath() + "/login");
         } else {
-            String role = (String) session.getAttribute("employeeRole");
+            String role = ((EmployeeDto) session.getAttribute("employee")).getRole().toString();
             if ("STAFF".equals(role) || "ADMIN".equals(role)) {
                 chain.doFilter(req, res);
             } else {
