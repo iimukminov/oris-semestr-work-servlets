@@ -1,5 +1,8 @@
 package ru.kpfu.itis.mukminov.entity;
 
+
+import ru.kpfu.itis.mukminov.enums.Role;
+
 public class Employee {
     private Long id;
     private String name;
@@ -7,13 +10,13 @@ public class Employee {
     private String email;
     private String passwordHash;
     private String passwordSalt;
-    private String role;
+    private Role role;
     private String position;
 
     public Employee() {}
 
     public Employee(Long id, String name, String lastname, String email,
-                    String passwordHash, String passwordSalt, String role, String position) {
+                    String passwordHash, String passwordSalt, Role role, String position) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
@@ -24,7 +27,7 @@ public class Employee {
         this.position = position;
     }
 
-    // Геттеры и сеттеры
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -43,8 +46,8 @@ public class Employee {
     public String getPasswordSalt() { return passwordSalt; }
     public void setPasswordSalt(String passwordSalt) { this.passwordSalt = passwordSalt; }
 
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+    public Role getRole() { return role; }
+    public void setRole(Role role) { this.role = role; }
 
     public String getPosition() { return position; }
     public void setPosition(String position) { this.position = position; }

@@ -1,17 +1,19 @@
 package ru.kpfu.itis.mukminov.dto;
 
+import ru.kpfu.itis.mukminov.enums.Role;
+
 public class EmployeeDto {
     private Long id;
     private String name;
     private String lastname;
     private String email;
-    private String role;
+    private Role role;
     private String position;
 
     public EmployeeDto() {
     }
 
-    public EmployeeDto(Long id, String name, String lastname, String email, String role, String position) {
+    public EmployeeDto(Long id, String name, String lastname, String email, Role role, String position) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
@@ -36,7 +38,7 @@ public class EmployeeDto {
         return email;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 

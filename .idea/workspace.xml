@@ -9,8 +9,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee67491f-be1d-4ef3-ad2c-4e87fea6b3a4" name="Changes" comment="Add EmployeeService interface and EmployeeServiceImpl for work with EmployeeDao">
+    <list default="true" id="ee67491f-be1d-4ef3-ad2c-4e87fea6b3a4" name="Changes" comment="Add LogoutServlet to handle user logout">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7c9e9ff5-4284-4cff-a18f-6cd8bf5c9bb6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7c9e9ff5-4284-4cff-a18f-6cd8bf5c9bb6.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/controller/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/controller/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/controller/SignUpServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/controller/SignUpServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dao/impl/EmployeeDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dao/impl/EmployeeDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dto/EmployeeDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dto/EmployeeDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/entity/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/entity/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/service/EmployeeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/service/EmployeeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/service/impl/EmployeeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/service/impl/EmployeeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/ftl/base.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/base.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/ftl/login.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/login.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/ftl/sign_up.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/sign_up.ftl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -246,7 +257,7 @@
       <workItem from="1761474121855" duration="719000" />
       <workItem from="1761474855077" duration="43000" />
       <workItem from="1761474902837" duration="45000" />
-      <workItem from="1761474955797" duration="7862000" />
+      <workItem from="1761474955797" duration="14381000" />
     </task>
     <task id="LOCAL-00001" summary="git commit -m &quot;Add basic FTL pages for project initialization&#10;&#10;- Create authentication templates (login, sign_up)&#10;- Add base FTL template (base.ftl)&#10;- Configure Maven and servlet settings&#10;- Include CSS styles for pages&quot;">
       <option name="closed" value="true" />
@@ -312,7 +323,31 @@
       <option name="project" value="LOCAL" />
       <updated>1761484602406</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Add SignUpServlet for register new clients">
+      <option name="closed" value="true" />
+      <created>1761484926761</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1761484926761</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Add LoginServlet for clients and employees authentication">
+      <option name="closed" value="true" />
+      <created>1761485038690</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1761485038690</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Add LogoutServlet to handle user logout">
+      <option name="closed" value="true" />
+      <created>1761485701809</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1761485701809</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -353,6 +388,9 @@
     <MESSAGE value="Add PasswordUtil and ConfigUtil for password hashing with salt" />
     <MESSAGE value="Add ClientService interface and ClientServiceImpl for work with ClientDao" />
     <MESSAGE value="Add EmployeeService interface and EmployeeServiceImpl for work with EmployeeDao" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add EmployeeService interface and EmployeeServiceImpl for work with EmployeeDao" />
+    <MESSAGE value="Add SignUpServlet for register new clients" />
+    <MESSAGE value="Add LoginServlet for clients and employees authentication" />
+    <MESSAGE value="Add LogoutServlet to handle user logout" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add LogoutServlet to handle user logout" />
   </component>
 </project>

@@ -3,6 +3,7 @@ package ru.kpfu.itis.mukminov.dao.impl;
 import ru.kpfu.itis.mukminov.dao.EmployeeDao;
 import ru.kpfu.itis.mukminov.dao.exceptions.DaoException;
 import ru.kpfu.itis.mukminov.entity.Employee;
+import ru.kpfu.itis.mukminov.enums.Role;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -21,16 +22,16 @@ public class EmployeeDaoImpl implements EmployeeDao {
         this.dataSource = dataSource;
     }
 
-    private Employee mapRowToEmployee(ResultSet rs) throws SQLException {
+    private Employee mapRowToEmployee(ResultSet row) throws SQLException {
         Employee employee = new Employee();
-        employee.setId(rs.getLong("id"));
-        employee.setName(rs.getString("name"));
-        employee.setLastname(rs.getString("lastname"));
-        employee.setEmail(rs.getString("email"));
-        employee.setPasswordHash(rs.getString("password_hash"));
-        employee.setPasswordSalt(rs.getString("password_salt"));
-        employee.setRole(rs.getString("role"));
-        employee.setPosition(rs.getString("position"));
+        employee.setId(row.getLong("id"));
+        employee.setName(row.getString("name"));
+        employee.setLastname(row.getString("lastname"));
+        employee.setEmail(row.getString("email"));
+        employee.setPasswordHash(row.getString("password_hash"));
+        employee.setPasswordSalt(row.getString("password_salt"));
+        employee.setRole(Role.valueOf(row.getString("role")));
+        employee.setPosition(row.getString("position"));
         return employee;
     }
 
@@ -45,7 +46,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             preparedStatement.setString(3, employee.getEmail());
             preparedStatement.setString(4, employee.getPasswordHash());
             preparedStatement.setString(5, employee.getPasswordSalt());
-            preparedStatement.setString(6, employee.getRole());
+            preparedStatement.setString(6, employee.getRole().name());
             preparedStatement.setString(7, employee.getPosition());
 
             preparedStatement.executeUpdate();
@@ -62,9 +63,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
             preparedStatement.setLong(1, id);
 
-            try (ResultSet rs = preparedStatement.executeQuery()) {
-                if (rs.next()) {
-                    return Optional.of(mapRowToEmployee(rs));
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return Optional.of(mapRowToEmployee(resultSet));
                 }
             }
         } catch (SQLException e) {
@@ -81,9 +82,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
             preparedStatement.setString(1, email);
 
-            try (ResultSet rs = preparedStatement.executeQuery()) {
-                if (rs.next()) {
-                    return Optional.of(mapRowToEmployee(rs));
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return Optional.of(mapRowToEmployee(resultSet));
                 }
             }
         } catch (SQLException e) {
@@ -98,10 +99,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
         List<Employee> employees = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql);
-             ResultSet rs = preparedStatement.executeQuery()) {
+             ResultSet resultSet = preparedStatement.executeQuery()) {
 
-            while (rs.next()) {
-                employees.add(mapRowToEmployee(rs));
+            while (resultSet.next()) {
+                employees.add(mapRowToEmployee(resultSet));
             }
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -120,7 +121,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             preparedStatement.setString(3, employee.getEmail());
             preparedStatement.setString(4, employee.getPasswordHash());
             preparedStatement.setString(5, employee.getPasswordSalt());
-            preparedStatement.setString(6, employee.getRole());
+            preparedStatement.setString(6, employee.getRole().name());
             preparedStatement.setString(7, employee.getPosition());
             preparedStatement.setLong(8, employee.getId());
 
@@ -152,8 +153,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
             preparedStatement.setString(1, email);
 
-            try (ResultSet rs = preparedStatement.executeQuery()) {
-                return rs.next();
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                return resultSet.next();
             }
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -169,9 +170,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
             preparedStatement.setString(1, role);
 
-            try (ResultSet rs = preparedStatement.executeQuery()) {
-                while (rs.next()) {
-                    employees.add(mapRowToEmployee(rs));
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    employees.add(mapRowToEmployee(resultSet));
                 }
             }
         } catch (SQLException e) {

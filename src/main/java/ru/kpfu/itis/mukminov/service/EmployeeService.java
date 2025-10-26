@@ -1,13 +1,14 @@
 package ru.kpfu.itis.mukminov.service;
 
 import ru.kpfu.itis.mukminov.dto.EmployeeDto;
+import ru.kpfu.itis.mukminov.enums.Role;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface EmployeeService {
 
-    void registerEmployee(String name, String lastname, String email, String password, String role, String position);
+    void registerEmployee(String name, String lastname, String email, String password, Role role, String position);
 
     boolean authenticate(String email, String password);
 
@@ -19,7 +20,7 @@ public interface EmployeeService {
 
     List<EmployeeDto> getEmployeesByRole(String role);
 
-    void updateEmployee(Long id, String name, String lastname, String email, String role, String position);
+    void updateEmployee(Long id, String name, String lastname, String email, Role role, String position);
 
     void deleteEmployee(Long id);
 

@@ -3,6 +3,7 @@ package ru.kpfu.itis.mukminov.service.impl;
 import ru.kpfu.itis.mukminov.dao.EmployeeDao;
 import ru.kpfu.itis.mukminov.dto.EmployeeDto;
 import ru.kpfu.itis.mukminov.entity.Employee;
+import ru.kpfu.itis.mukminov.enums.Role;
 import ru.kpfu.itis.mukminov.service.EmployeeService;
 import ru.kpfu.itis.mukminov.util.PasswordUtil;
 
@@ -19,7 +20,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void registerEmployee(String name, String lastname, String email, String password, String role, String position) {
+    public void registerEmployee(String name, String lastname, String email, String password, Role role, String position) {
         if (isEmailTaken(email)) {
             throw new IllegalArgumentException("Email already exists");
         }
@@ -71,7 +72,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void updateEmployee(Long id, String name, String lastname, String email, String role, String position) {
+    public void updateEmployee(Long id, String name, String lastname, String email, Role role, String position) {
         Optional<Employee> existingEmployee = employeeDao.findById(id);
 
         if (existingEmployee.isEmpty()) {

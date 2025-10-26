@@ -24,7 +24,7 @@ public class SignUpServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/ftl/sign_up.ftl").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/sign_up.ftl").forward(req, resp);
     }
 
     @Override
@@ -44,20 +44,20 @@ public class SignUpServlet extends HttpServlet {
                 password == null || password.trim().isEmpty()) {
 
             req.setAttribute("error", "Все обязательные поля должны быть заполнены");
-            req.getRequestDispatcher("/WEB-INF/ftl/sign_up.ftl").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/views/sign_up.ftl").forward(req, resp);
             return;
         }
 
         if (!password.equals(passwordConfirm)) {
             req.setAttribute("error", "Пароли не совпадают");
-            req.getRequestDispatcher("/WEB-INF/ftl/sign_up.ftl").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/views/sign_up.ftl").forward(req, resp);
             return;
         }
 
 
         if (employeeService.isEmailTaken(email) || clientService.isEmailTaken(email)) {
             req.setAttribute("error", "Этот email уже используется");
-            req.getRequestDispatcher("/WEB-INF/ftl/sign_up.ftl").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/views/sign_up.ftl").forward(req, resp);
             return;
         }
 
@@ -66,7 +66,7 @@ public class SignUpServlet extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/login");
         } catch (IllegalArgumentException e) {
             req.setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/WEB-INF/ftl/sign_up.ftl").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/views/sign_up.ftl").forward(req, resp);
         }
     }
 }

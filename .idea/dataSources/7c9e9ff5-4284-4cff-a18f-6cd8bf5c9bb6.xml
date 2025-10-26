@@ -4314,7 +4314,7 @@ false Zulu
     </table>
     <table id="277" parent="269" name="employees">
       <ObjectId>25495</ObjectId>
-      <StateNumber>904</StateNumber>
+      <StateNumber>941</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
@@ -4454,7 +4454,13 @@ false Zulu
       <StateNumber>899</StateNumber>
       <UnderlyingIndexId>25492</UnderlyingIndexId>
     </key>
-    <column id="297" parent="277" name="id">
+    <check id="297" parent="277" name="check_role">
+      <ColNames>role</ColNames>
+      <ObjectId>25619</ObjectId>
+      <Predicate>(role)::text = ANY (ARRAY[(&apos;STAFF&apos;::character varying)::text, (&apos;ADMIN&apos;::character varying)::text])</Predicate>
+      <StateNumber>941</StateNumber>
+    </check>
+    <column id="298" parent="277" name="id">
       <DefaultExpression>nextval(&apos;employees_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -4463,55 +4469,55 @@ false Zulu
       <SequenceId>25494</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="298" parent="277" name="name">
+    <column id="299" parent="277" name="name">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>900</StateNumber>
       <StoredType>varchar(100)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="299" parent="277" name="lastname">
+    <column id="300" parent="277" name="lastname">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>900</StateNumber>
       <StoredType>varchar(100)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="300" parent="277" name="email">
+    <column id="301" parent="277" name="email">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>900</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="301" parent="277" name="password_hash">
+    <column id="302" parent="277" name="password_hash">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>900</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="302" parent="277" name="password_salt">
+    <column id="303" parent="277" name="password_salt">
       <NotNull>1</NotNull>
       <Position>6</Position>
       <StateNumber>900</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="303" parent="277" name="role">
+    <column id="304" parent="277" name="role">
       <NotNull>1</NotNull>
       <Position>7</Position>
       <StateNumber>900</StateNumber>
       <StoredType>varchar(50)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="304" parent="277" name="position">
+    <column id="305" parent="277" name="position">
       <Position>8</Position>
       <StateNumber>900</StateNumber>
       <StoredType>varchar(100)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <index id="305" parent="277" name="employees_pkey">
+    <index id="306" parent="277" name="employees_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25501</ObjectId>
@@ -4520,7 +4526,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="306" parent="277" name="employees_email_key">
+    <index id="307" parent="277" name="employees_email_key">
       <ColNames>email</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25503</ObjectId>
@@ -4531,20 +4537,20 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="307" parent="277" name="employees_pkey">
+    <key id="308" parent="277" name="employees_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25502</ObjectId>
       <Primary>1</Primary>
       <StateNumber>900</StateNumber>
       <UnderlyingIndexId>25501</UnderlyingIndexId>
     </key>
-    <key id="308" parent="277" name="employees_email_key">
+    <key id="309" parent="277" name="employees_email_key">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25504</ObjectId>
       <StateNumber>900</StateNumber>
       <UnderlyingIndexId>25503</UnderlyingIndexId>
     </key>
-    <column id="309" parent="278" name="id">
+    <column id="310" parent="278" name="id">
       <DefaultExpression>nextval(&apos;equipment_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -4553,44 +4559,44 @@ false Zulu
       <SequenceId>25505</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="310" parent="278" name="client_id">
+    <column id="311" parent="278" name="client_id">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>901</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="311" parent="278" name="type">
+    <column id="312" parent="278" name="type">
       <Position>3</Position>
       <StateNumber>901</StateNumber>
       <StoredType>varchar(100)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="312" parent="278" name="brand">
+    <column id="313" parent="278" name="brand">
       <Position>4</Position>
       <StateNumber>901</StateNumber>
       <StoredType>varchar(100)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="313" parent="278" name="model">
+    <column id="314" parent="278" name="model">
       <Position>5</Position>
       <StateNumber>901</StateNumber>
       <StoredType>varchar(100)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="314" parent="278" name="serial_number">
+    <column id="315" parent="278" name="serial_number">
       <Position>6</Position>
       <StateNumber>901</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="315" parent="278" name="description">
+    <column id="316" parent="278" name="description">
       <Position>7</Position>
       <StateNumber>901</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <foreign-key id="316" parent="278" name="equipment_client_id_fkey">
+    <foreign-key id="317" parent="278" name="equipment_client_id_fkey">
       <ColNames>client_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25516</ObjectId>
@@ -4598,7 +4604,7 @@ false Zulu
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>25481</RefTableId>
     </foreign-key>
-    <index id="317" parent="278" name="equipment_pkey">
+    <index id="318" parent="278" name="equipment_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25512</ObjectId>
@@ -4607,7 +4613,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="318" parent="278" name="equipment_serial_number_key">
+    <index id="319" parent="278" name="equipment_serial_number_key">
       <ColNames>serial_number</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25514</ObjectId>
@@ -4618,47 +4624,47 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="319" parent="278" name="equipment_pkey">
+    <key id="320" parent="278" name="equipment_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25513</ObjectId>
       <Primary>1</Primary>
       <StateNumber>901</StateNumber>
       <UnderlyingIndexId>25512</UnderlyingIndexId>
     </key>
-    <key id="320" parent="278" name="equipment_serial_number_key">
+    <key id="321" parent="278" name="equipment_serial_number_key">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25515</ObjectId>
       <StateNumber>901</StateNumber>
       <UnderlyingIndexId>25514</UnderlyingIndexId>
     </key>
-    <check id="321" parent="279" name="order_parts_quantity_check">
+    <check id="322" parent="279" name="order_parts_quantity_check">
       <ColNames>quantity</ColNames>
       <ObjectId>25585</ObjectId>
       <Predicate>quantity &gt; 0</Predicate>
       <StateNumber>906</StateNumber>
     </check>
-    <column id="322" parent="279" name="order_id">
+    <column id="323" parent="279" name="order_id">
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>906</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="323" parent="279" name="part_id">
+    <column id="324" parent="279" name="part_id">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>906</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="324" parent="279" name="quantity">
+    <column id="325" parent="279" name="quantity">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>906</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <foreign-key id="325" parent="279" name="order_parts_order_id_fkey">
+    <foreign-key id="326" parent="279" name="order_parts_order_id_fkey">
       <ColNames>order_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25588</ObjectId>
@@ -4666,7 +4672,7 @@ false Zulu
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>25546</RefTableId>
     </foreign-key>
-    <foreign-key id="326" parent="279" name="order_parts_part_id_fkey">
+    <foreign-key id="327" parent="279" name="order_parts_part_id_fkey">
       <ColNames>part_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25593</ObjectId>
@@ -4674,7 +4680,7 @@ false Zulu
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>25534</RefTableId>
     </foreign-key>
-    <index id="327" parent="279" name="order_parts_pkey">
+    <index id="328" parent="279" name="order_parts_pkey">
       <ColNames>order_id
 part_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
@@ -4684,28 +4690,28 @@ part_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="328" parent="279" name="order_parts_pkey">
+    <key id="329" parent="279" name="order_parts_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25587</ObjectId>
       <Primary>1</Primary>
       <StateNumber>906</StateNumber>
       <UnderlyingIndexId>25586</UnderlyingIndexId>
     </key>
-    <column id="329" parent="280" name="order_id">
+    <column id="330" parent="280" name="order_id">
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>905</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="330" parent="280" name="service_id">
+    <column id="331" parent="280" name="service_id">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>905</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <foreign-key id="331" parent="280" name="order_services_order_id_fkey">
+    <foreign-key id="332" parent="280" name="order_services_order_id_fkey">
       <ColNames>order_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25572</ObjectId>
@@ -4713,7 +4719,7 @@ part_id</ColNames>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>25546</RefTableId>
     </foreign-key>
-    <foreign-key id="332" parent="280" name="order_services_service_id_fkey">
+    <foreign-key id="333" parent="280" name="order_services_service_id_fkey">
       <ColNames>service_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25577</ObjectId>
@@ -4721,7 +4727,7 @@ part_id</ColNames>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>25522</RefTableId>
     </foreign-key>
-    <index id="333" parent="280" name="order_services_pkey">
+    <index id="334" parent="280" name="order_services_pkey">
       <ColNames>order_id
 service_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
@@ -4731,26 +4737,26 @@ service_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="334" parent="280" name="order_services_pkey">
+    <key id="335" parent="280" name="order_services_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25571</ObjectId>
       <Primary>1</Primary>
       <StateNumber>905</StateNumber>
       <UnderlyingIndexId>25570</UnderlyingIndexId>
     </key>
-    <check id="335" parent="281" name="parts_price_check">
+    <check id="336" parent="281" name="parts_price_check">
       <ColNames>price</ColNames>
       <ObjectId>25540</ObjectId>
       <Predicate>price &gt;= (0)::numeric</Predicate>
       <StateNumber>903</StateNumber>
     </check>
-    <check id="336" parent="281" name="parts_quantity_in_stock_check">
+    <check id="337" parent="281" name="parts_quantity_in_stock_check">
       <ColNames>quantity_in_stock</ColNames>
       <ObjectId>25539</ObjectId>
       <Predicate>quantity_in_stock &gt;= 0</Predicate>
       <StateNumber>903</StateNumber>
     </check>
-    <column id="337" parent="281" name="id">
+    <column id="338" parent="281" name="id">
       <DefaultExpression>nextval(&apos;parts_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -4759,20 +4765,20 @@ service_id</ColNames>
       <SequenceId>25533</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="338" parent="281" name="name">
+    <column id="339" parent="281" name="name">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>903</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="339" parent="281" name="sku">
+    <column id="340" parent="281" name="sku">
       <Position>3</Position>
       <StateNumber>903</StateNumber>
       <StoredType>varchar(100)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="340" parent="281" name="quantity_in_stock">
+    <column id="341" parent="281" name="quantity_in_stock">
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>4</Position>
@@ -4780,14 +4786,14 @@ service_id</ColNames>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="341" parent="281" name="price">
+    <column id="342" parent="281" name="price">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>903</StateNumber>
       <StoredType>numeric(10,2 digit)|0s</StoredType>
       <TypeId>1700</TypeId>
     </column>
-    <index id="342" parent="281" name="parts_pkey">
+    <index id="343" parent="281" name="parts_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25541</ObjectId>
@@ -4796,7 +4802,7 @@ service_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="343" parent="281" name="parts_sku_key">
+    <index id="344" parent="281" name="parts_sku_key">
       <ColNames>sku</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25543</ObjectId>
@@ -4807,20 +4813,20 @@ service_id</ColNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="344" parent="281" name="parts_pkey">
+    <key id="345" parent="281" name="parts_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25542</ObjectId>
       <Primary>1</Primary>
       <StateNumber>903</StateNumber>
       <UnderlyingIndexId>25541</UnderlyingIndexId>
     </key>
-    <key id="345" parent="281" name="parts_sku_key">
+    <key id="346" parent="281" name="parts_sku_key">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25544</ObjectId>
       <StateNumber>903</StateNumber>
       <UnderlyingIndexId>25543</UnderlyingIndexId>
     </key>
-    <column id="346" parent="282" name="id">
+    <column id="347" parent="282" name="id">
       <DefaultExpression>nextval(&apos;repair_orders_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -4829,20 +4835,20 @@ service_id</ColNames>
       <SequenceId>25545</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="347" parent="282" name="equipment_id">
+    <column id="348" parent="282" name="equipment_id">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>904</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="348" parent="282" name="technician_id">
+    <column id="349" parent="282" name="technician_id">
       <Position>3</Position>
       <StateNumber>904</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="349" parent="282" name="status">
+    <column id="350" parent="282" name="status">
       <DefaultExpression>&apos;Новая&apos;::character varying</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>4</Position>
@@ -4850,34 +4856,34 @@ service_id</ColNames>
       <StoredType>varchar(50)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="350" parent="282" name="problem_description">
+    <column id="351" parent="282" name="problem_description">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>904</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="351" parent="282" name="created_at">
+    <column id="352" parent="282" name="created_at">
       <DefaultExpression>now()</DefaultExpression>
       <Position>6</Position>
       <StateNumber>904</StateNumber>
       <StoredType>timestamp with time zone|0s</StoredType>
       <TypeId>1184</TypeId>
     </column>
-    <column id="352" parent="282" name="completed_at">
+    <column id="353" parent="282" name="completed_at">
       <Position>7</Position>
       <StateNumber>904</StateNumber>
       <StoredType>timestamp with time zone|0s</StoredType>
       <TypeId>1184</TypeId>
     </column>
-    <column id="353" parent="282" name="total_cost">
+    <column id="354" parent="282" name="total_cost">
       <DefaultExpression>0</DefaultExpression>
       <Position>8</Position>
       <StateNumber>904</StateNumber>
       <StoredType>numeric(10,2 digit)|0s</StoredType>
       <TypeId>1700</TypeId>
     </column>
-    <foreign-key id="354" parent="282" name="repair_orders_equipment_id_fkey">
+    <foreign-key id="355" parent="282" name="repair_orders_equipment_id_fkey">
       <ColNames>equipment_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25557</ObjectId>
@@ -4885,7 +4891,7 @@ service_id</ColNames>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>25506</RefTableId>
     </foreign-key>
-    <foreign-key id="355" parent="282" name="repair_orders_technician_id_fkey">
+    <foreign-key id="356" parent="282" name="repair_orders_technician_id_fkey">
       <ColNames>technician_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25562</ObjectId>
@@ -4893,7 +4899,7 @@ service_id</ColNames>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>25495</RefTableId>
     </foreign-key>
-    <index id="356" parent="282" name="repair_orders_pkey">
+    <index id="357" parent="282" name="repair_orders_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25555</ObjectId>
@@ -4902,20 +4908,20 @@ service_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="357" parent="282" name="repair_orders_pkey">
+    <key id="358" parent="282" name="repair_orders_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25556</ObjectId>
       <Primary>1</Primary>
       <StateNumber>904</StateNumber>
       <UnderlyingIndexId>25555</UnderlyingIndexId>
     </key>
-    <check id="358" parent="283" name="services_price_check">
+    <check id="359" parent="283" name="services_price_check">
       <ColNames>price</ColNames>
       <ObjectId>25526</ObjectId>
       <Predicate>price &gt;= (0)::numeric</Predicate>
       <StateNumber>902</StateNumber>
     </check>
-    <column id="359" parent="283" name="id">
+    <column id="360" parent="283" name="id">
       <DefaultExpression>nextval(&apos;services_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -4924,27 +4930,27 @@ service_id</ColNames>
       <SequenceId>25521</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="360" parent="283" name="name">
+    <column id="361" parent="283" name="name">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>902</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="361" parent="283" name="price">
+    <column id="362" parent="283" name="price">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>902</StateNumber>
       <StoredType>numeric(10,2 digit)|0s</StoredType>
       <TypeId>1700</TypeId>
     </column>
-    <column id="362" parent="283" name="description">
+    <column id="363" parent="283" name="description">
       <Position>4</Position>
       <StateNumber>902</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <index id="363" parent="283" name="services_pkey">
+    <index id="364" parent="283" name="services_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25529</ObjectId>
@@ -4953,7 +4959,7 @@ service_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="364" parent="283" name="services_name_key">
+    <index id="365" parent="283" name="services_name_key">
       <ColNames>name</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25531</ObjectId>
@@ -4964,14 +4970,14 @@ service_id</ColNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="365" parent="283" name="services_pkey">
+    <key id="366" parent="283" name="services_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25530</ObjectId>
       <Primary>1</Primary>
       <StateNumber>902</StateNumber>
       <UnderlyingIndexId>25529</UnderlyingIndexId>
     </key>
-    <key id="366" parent="283" name="services_name_key">
+    <key id="367" parent="283" name="services_name_key">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>25532</ObjectId>
       <StateNumber>902</StateNumber>

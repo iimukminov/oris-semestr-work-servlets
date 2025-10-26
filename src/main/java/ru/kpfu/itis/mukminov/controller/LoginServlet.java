@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/ftl/login.ftl").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/login.ftl").forward(req, resp);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
 
         if (email == null || password == null || email.isEmpty() || password.isEmpty()) {
             req.setAttribute("error", "Введите email и пароль");
-            req.getRequestDispatcher("/WEB-INF/ftl/login.ftl").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/views/login.ftl").forward(req, resp);
             return;
         }
 
@@ -71,6 +71,6 @@ public class LoginServlet extends HttpServlet {
 
 
         req.setAttribute("error", "Неверный email или пароль");
-        req.getRequestDispatcher("/WEB-INF/ftl/login.ftl").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/login.ftl").forward(req, resp);
     }
 }
