@@ -27,8 +27,7 @@ public class ClientServiceImpl implements ClientService {
         String salt = PasswordUtil.generateSalt();
         String passwordHash = PasswordUtil.hashPassword(password, salt);
 
-        Client client = new Client(null, name, lastname, phoneNumber,
-                email, passwordHash, salt);
+        Client client = new Client(null, name, lastname, phoneNumber, email, passwordHash, salt);
 
         clientDao.save(client);
     }

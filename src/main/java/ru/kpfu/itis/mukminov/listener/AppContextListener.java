@@ -30,9 +30,13 @@ public class AppContextListener implements ServletContextListener {
             ClientDao clientDao = new ClientDaoImpl(dataSource);
             EmployeeDao employeeDao = new EmployeeDaoImpl(dataSource);
 
+            ClientService clientService = new ClientServiceImpl(clientDao);
+            EmployeeService employeeService = new EmployeeServiceImpl(employeeDao);
 
             sce.getServletContext().setAttribute(DATASOURCE_ATTR, dataSource);
 
+            sce.getServletContext().setAttribute("clientService", clientService);
+            sce.getServletContext().setAttribute("employeeService", employeeService);
 
 
         } catch (Exception e) {
