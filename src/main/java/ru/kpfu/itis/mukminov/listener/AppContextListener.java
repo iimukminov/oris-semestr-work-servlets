@@ -27,6 +27,8 @@ public class AppContextListener implements ServletContextListener {
             HikariConfig config = new HikariConfig("/db.properties");
             HikariDataSource dataSource = new HikariDataSource(config);
 
+            ClientDao clientDao = new ClientDaoImpl(dataSource);
+
 
             sce.getServletContext().setAttribute(DATASOURCE_ATTR, dataSource);
 
