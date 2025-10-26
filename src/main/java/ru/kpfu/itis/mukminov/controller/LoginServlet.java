@@ -2,6 +2,7 @@ package ru.kpfu.itis.mukminov.controller;
 
 import ru.kpfu.itis.mukminov.dto.ClientDto;
 import ru.kpfu.itis.mukminov.dto.EmployeeDto;
+import ru.kpfu.itis.mukminov.enums.Role;
 import ru.kpfu.itis.mukminov.service.ClientService;
 import ru.kpfu.itis.mukminov.service.EmployeeService;
 import ru.kpfu.itis.mukminov.util.PasswordUtil;
@@ -51,7 +52,11 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("employee", employeeOpt.get());
                 session.setAttribute("userType", "employee");
                 session.setMaxInactiveInterval(30 * 60);
-                resp.sendRedirect(req.getContextPath() + "/admin");
+                if (employeeOpt.get().getRole() == Role.ADMIN) {
+                    resp.sendRedirect(req.getContextPath() + "/admin");
+                } else {
+                    resp.sendRedirect(req.getContextPath() + "/staff");
+                }
                 return;
             }
         }
