@@ -28,6 +28,7 @@ public class AppContextListener implements ServletContextListener {
             HikariDataSource dataSource = new HikariDataSource(config);
 
             ClientDao clientDao = new ClientDaoImpl(dataSource);
+            EmployeeDao employeeDao = new EmployeeDaoImpl(dataSource);
 
 
             sce.getServletContext().setAttribute(DATASOURCE_ATTR, dataSource);
