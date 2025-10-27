@@ -1,9 +1,8 @@
 package ru.kpfu.itis.mukminov.dao.impl;
 
-import ru.kpfu.itis.mukminov.dao.PartDao;
-
+import ru.kpfu.itis.mukminov.dao.ServiceDao;
 import ru.kpfu.itis.mukminov.dao.exceptions.DaoException;
-import ru.kpfu.itis.mukminov.entity.Part;
+import ru.kpfu.itis.mukminov.entity.Service;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -14,31 +13,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class PartDaoImpl implements PartDao {
+public class ServiceDaoImpl implements ServiceDao {
     private final DataSource dataSource;
 
-    public PartDaoImpl(DataSource dataSource) {
+    public ServiceDaoImpl(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
-    private Part mapRowToPart(ResultSet row) throws SQLException {
-        Part part = new Part();
-        part.setId(row.getLong("id"));
-        part.setName(row.getString("name"));
-        part.setQuantity(row.getInt("quantity_in_stock"));
-        part.setPrice(row.getBigDecimal("price"));
-        return part;
+    private Service mapRowToService(ResultSet row) throws SQLException {
+        Service service = new Service();
+        service.setId(row.getInt("id"));
+        service.setName(row.getString("name"));
+        service.setPrice(row.getBigDecimal("price"));
+        service.setDescription(row.getString("description"));
+        return service;
     }
 
     @Override
-    public void save(Part part) {
-        String sql = "INSERT INTO parts(name, quantity_in_stock, price) VALUES (?, ?, ?)";
+    public void save(Service service) {
+        String sql = "INSERT INTO services(name, price, description) VALUES (?, ?, ?)";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            preparedStatement.setString(1, part.getName());
-            preparedStatement.setInt(2, part.getQuantity());
-            preparedStatement.setBigDecimal(3, part.getPrice());
+            preparedStatement.setString(1, service.getName());
+            preparedStatement.setBigDecimal(2, service.getPrice());
+            preparedStatement.setString(3, service.getDescription());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -47,27 +46,26 @@ public class PartDaoImpl implements PartDao {
     }
 
     @Override
-    public void update(Part part) {
-        String sql = "UPDATE parts SET name = ?, quantity_in_stock = ?, price = ? WHERE id = ?";
+    public void update(Service service) {
+        String sql = "UPDATE services SET name = ?, price = ?, description = ? WHERE id = ?";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            preparedStatement.setString(1, part.getName());
-            preparedStatement.setInt(2, part.getQuantity());
-            preparedStatement.setBigDecimal(3, part.getPrice());
-            preparedStatement.setLong(4, part.getId());
+            preparedStatement.setString(1, service.getName());
+            preparedStatement.setBigDecimal(2, service.getPrice());
+            preparedStatement.setString(3, service.getDescription());
+            preparedStatement.setInt(4, service.getId());
 
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             throw new DaoException(e);
         }
-
     }
 
     @Override
-    public void delete(Long id) {
-        String sql = "DELETE FROM parts WHERE id = ?";
+    public void delete(Integer id) {
+        String sql = "DELETE FROM services WHERE id = ?";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
@@ -80,8 +78,8 @@ public class PartDaoImpl implements PartDao {
     }
 
     @Override
-    public Optional<Part> findById(Long id) {
-        String sql = "SELECT * FROM parts WHERE id = ?";
+    public Optional<Service> findById(Integer id) {
+        String sql = "SELECT * FROM services WHERE id = ?";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
@@ -89,7 +87,7 @@ public class PartDaoImpl implements PartDao {
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    return Optional.of(mapRowToPart(resultSet));
+                    return Optional.of(mapRowToService(resultSet));
                 }
             }
         } catch (SQLException e) {
@@ -99,20 +97,20 @@ public class PartDaoImpl implements PartDao {
     }
 
     @Override
-    public List<Part> findAll() {
-        String sql = "SELECT * FROM parts";
-        List<Part> parts = new ArrayList<>();
+    public List<Service> findAll() {
+        String sql = "SELECT * FROM services";
+        List<Service> services = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    parts.add(mapRowToPart(resultSet));
+                    services.add(mapRowToService(resultSet));
                 }
             }
         } catch (SQLException e) {
             throw new DaoException(e);
         }
-        return parts;
+        return services;
     }
 }
