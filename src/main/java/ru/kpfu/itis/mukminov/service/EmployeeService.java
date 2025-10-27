@@ -20,7 +20,7 @@ public interface EmployeeService {
 
     List<EmployeeDto> getEmployeesByRole(String role);
 
-    void updateEmployee(Long id, String name, String lastname, String email, Role role, String position);
+    void updateEmployee(Long id, String name, String lastname, String email, Role role, String position, String password);
 
     void deleteEmployee(Long id);
 

@@ -2,6 +2,7 @@ package ru.kpfu.itis.mukminov.service.impl;
 
 import ru.kpfu.itis.mukminov.dao.EmployeeDao;
 import ru.kpfu.itis.mukminov.dto.EmployeeDto;
+import ru.kpfu.itis.mukminov.entity.Client;
 import ru.kpfu.itis.mukminov.entity.Employee;
 import ru.kpfu.itis.mukminov.enums.Role;
 import ru.kpfu.itis.mukminov.service.EmployeeService;
@@ -61,32 +62,47 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<EmployeeDto> getAllEmployees() {
         return employeeDao.findAll().stream()
                 .map(this::convertToDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public List<EmployeeDto> getEmployeesByRole(String role) {
         return employeeDao.findByRole(role).stream()
                 .map(this::convertToDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
-    public void updateEmployee(Long id, String name, String lastname, String email, Role role, String position) {
+    public void updateEmployee(Long id, String name, String lastname, String email, Role role, String position, String password) {
         Optional<Employee> existingEmployee = employeeDao.findById(id);
 
         if (existingEmployee.isEmpty()) {
             throw new IllegalArgumentException("Employee not found");
         }
 
+        Optional<Employee> employeeOpt = employeeDao.findByEmail(email);
+        if (employeeOpt.isPresent() && !employeeOpt.get().getId().equals(id)) {
+            throw new IllegalArgumentException("Email already exists");
+        }
+
         Employee employee = existingEmployee.get();
+
+        String salt = "";
+        String hashedPassword = "";
+        if (password == null || password.isEmpty()) {
+            salt = employee.getPasswordSalt();
+            hashedPassword = employee.getPasswordHash();
+        } else {
+            salt = PasswordUtil.generateSalt();
+            hashedPassword = PasswordUtil.hashPassword(password, salt);
+        }
         Employee updatedEmployee = new Employee(
                 employee.getId(),
                 name,
                 lastname,
                 email,
-                employee.getPasswordHash(),
-                employee.getPasswordSalt(),
+                salt,
+                hashedPassword,
                 role,
                 position
         );

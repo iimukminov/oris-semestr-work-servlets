@@ -16,7 +16,7 @@ public interface ClientService {
 
     List<ClientDto> getAllClients();
 
-    void updateClient(Long id, String name, String lastname, String phoneNumber, String email);
+    void updateClient(Long id, String name, String lastname, String phoneNumber, String email, String password);
 
     void deleteClient(Long id);
 

@@ -60,26 +60,41 @@ public class ClientServiceImpl implements ClientService {
     public List<ClientDto> getAllClients() {
         return clientDao.findAll().stream()
                 .map(this::convertToDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
-    public void updateClient(Long id, String name, String lastname, String phoneNumber, String email) {
+    public void updateClient(Long id, String name, String lastname, String phoneNumber, String email, String password) {
         Optional<Client> existingClient = clientDao.findById(id);
 
         if (existingClient.isEmpty()) {
             throw new IllegalArgumentException("Client not found");
         }
 
+        Optional<Client> clientOpt = clientDao.findByEmail(email);
+        if (clientOpt.isPresent() && !clientOpt.get().getId().equals(id)) {
+            throw new IllegalArgumentException("Email already exists");
+        }
+
         Client client = existingClient.get();
+
+        String salt = "";
+        String hashedPassword = "";
+        if (password == null || password.isEmpty()) {
+            salt = client.getPasswordSalt();
+            hashedPassword = client.getPasswordHash();
+        } else {
+            salt = PasswordUtil.generateSalt();
+            hashedPassword = PasswordUtil.hashPassword(password, salt);
+        }
         Client updatedClient = new Client(
                 client.getId(),
                 name,
                 lastname,
                 phoneNumber,
                 email,
-                client.getPasswordHash(),
-                client.getPasswordSalt()
+                hashedPassword,
+                salt
         );
 
         clientDao.update(updatedClient);
