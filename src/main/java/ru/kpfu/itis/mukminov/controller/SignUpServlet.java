@@ -63,7 +63,7 @@ public class SignUpServlet extends HttpServlet {
 
         try {
             clientService.registerClient(name, lastname, phoneNumber, email, password);
-            resp.sendRedirect(req.getContextPath() + "/login");
+            resp.sendRedirect("/login");
         } catch (IllegalArgumentException e) {
             req.setAttribute("error", e.getMessage());
             req.getRequestDispatcher("/WEB-INF/views/sign_up.ftl").forward(req, resp);

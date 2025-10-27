@@ -60,6 +60,57 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
+    public void update(Client client) {
+        String sql = "UPDATE clients SET name = ?, lastname = ?, phone_number = ?, email = ?, password_hash = ?, password_salt = ? WHERE id = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, client.getName());
+            preparedStatement.setString(2, client.getLastname());
+            preparedStatement.setString(3, client.getPhoneNumber());
+            preparedStatement.setString(4, client.getEmail());
+            preparedStatement.setString(5, client.getPasswordHash());
+            preparedStatement.setString(6, client.getPasswordSalt());
+            preparedStatement.setLong(7, client.getId());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        String sql = "DELETE FROM clients WHERE id = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setLong(1, id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        String sql = "SELECT 1 FROM clients WHERE email = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, email);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                return resultSet.next();
+            }
+
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
     public Optional<Client> findById(Long id) {
         String sql = "SELECT * FROM clients WHERE id = ?";
         try (Connection connection = dataSource.getConnection();
@@ -113,57 +164,6 @@ public class ClientDaoImpl implements ClientDao {
             throw new DaoException(e);
         }
         return clients;
-    }
-
-    @Override
-    public void update(Client client) {
-        String sql = "UPDATE clients SET name = ?, lastname = ?, phone_number = ?, email = ?, password_hash = ?, password_salt = ? WHERE id = ?";
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-
-            preparedStatement.setString(1, client.getName());
-            preparedStatement.setString(2, client.getLastname());
-            preparedStatement.setString(3, client.getPhoneNumber());
-            preparedStatement.setString(4, client.getEmail());
-            preparedStatement.setString(5, client.getPasswordHash());
-            preparedStatement.setString(6, client.getPasswordSalt());
-            preparedStatement.setLong(7, client.getId());
-
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        String sql = "DELETE FROM clients WHERE id = ?";
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-
-            preparedStatement.setLong(1, id);
-
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
-    }
-
-    @Override
-    public boolean existsByEmail(String email) {
-        String sql = "SELECT 1 FROM clients WHERE email = ?";
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-
-            preparedStatement.setString(1, email);
-
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                return resultSet.next();
-            }
-
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
     }
 }
 

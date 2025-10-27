@@ -6,11 +6,12 @@ import java.util.Optional;
 
 public interface EmployeeDao {
     void save(Employee employee);
-    Optional<Employee> findById(Long id);
-    Optional<Employee> findByEmail(String email);
-    List<Employee> findAll();
     void update(Employee employee);
     void deleteById(Long id);
     boolean existsByEmail(String email);
+
+    Optional<Employee> findById(Long id);
+    Optional<Employee> findByEmail(String email);
+    List<Employee> findAll();
     List<Employee> findByRole(String role);
 }

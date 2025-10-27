@@ -56,6 +56,58 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
+    public void update(Employee employee) {
+        String sql = "UPDATE employees SET name = ?, lastname = ?, email = ?, password_hash = ?, password_salt = ?, role = ?, position = ? WHERE id = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, employee.getName());
+            preparedStatement.setString(2, employee.getLastname());
+            preparedStatement.setString(3, employee.getEmail());
+            preparedStatement.setString(4, employee.getPasswordHash());
+            preparedStatement.setString(5, employee.getPasswordSalt());
+            preparedStatement.setString(6, employee.getRole().name());
+            preparedStatement.setString(7, employee.getPosition());
+            preparedStatement.setLong(8, employee.getId());
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        String sql = "DELETE FROM employees WHERE id = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setLong(1, id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        String sql = "SELECT 1 FROM employees WHERE email = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, email);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                return resultSet.next();
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
     public Optional<Employee> findById(Long id) {
         String sql = "SELECT * FROM employees WHERE id = ?";
         try (Connection connection = dataSource.getConnection();
@@ -98,11 +150,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
         String sql = "SELECT * FROM employees";
         List<Employee> employees = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            while (resultSet.next()) {
-                employees.add(mapRowToEmployee(resultSet));
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    employees.add(mapRowToEmployee(resultSet));
+                }
             }
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -110,56 +163,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
         return employees;
     }
 
-    @Override
-    public void update(Employee employee) {
-        String sql = "UPDATE employees SET name = ?, lastname = ?, email = ?, password_hash = ?, password_salt = ?, role = ?, position = ? WHERE id = ?";
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-
-            preparedStatement.setString(1, employee.getName());
-            preparedStatement.setString(2, employee.getLastname());
-            preparedStatement.setString(3, employee.getEmail());
-            preparedStatement.setString(4, employee.getPasswordHash());
-            preparedStatement.setString(5, employee.getPasswordSalt());
-            preparedStatement.setString(6, employee.getRole().name());
-            preparedStatement.setString(7, employee.getPosition());
-            preparedStatement.setLong(8, employee.getId());
-
-            preparedStatement.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        String sql = "DELETE FROM employees WHERE id = ?";
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-
-            preparedStatement.setLong(1, id);
-
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
-    }
-
-    @Override
-    public boolean existsByEmail(String email) {
-        String sql = "SELECT 1 FROM employees WHERE email = ?";
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-
-            preparedStatement.setString(1, email);
-
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                return resultSet.next();
-            }
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
-    }
 
     @Override
     public List<Employee> findByRole(String role) {

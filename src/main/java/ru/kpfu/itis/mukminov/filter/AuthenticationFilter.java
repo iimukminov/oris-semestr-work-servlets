@@ -29,6 +29,8 @@ public class AuthenticationFilter implements Filter {
         } else {
             chain.doFilter(request, response);
         }
+
+        chain.doFilter(request, response);
     }
 
     @Override

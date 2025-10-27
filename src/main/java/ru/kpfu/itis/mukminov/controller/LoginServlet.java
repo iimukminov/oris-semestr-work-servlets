@@ -53,9 +53,9 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("userType", "employee");
                 session.setMaxInactiveInterval(30 * 60);
                 if (employeeOpt.get().getRole() == Role.ADMIN) {
-                    resp.sendRedirect(req.getContextPath() + "/admin");
+                    resp.sendRedirect("/admin/users");
                 } else {
-                    resp.sendRedirect(req.getContextPath() + "/staff");
+                    resp.sendRedirect("/staff/order");
                 }
                 return;
             }
@@ -69,7 +69,7 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("client", clientOpt.get());
                 session.setAttribute("userType", "client");
                 session.setMaxInactiveInterval(30 * 60);
-                resp.sendRedirect(req.getContextPath() + "/home");
+                resp.sendRedirect("/home");
                 return;
             }
         }

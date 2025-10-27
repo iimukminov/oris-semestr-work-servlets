@@ -22,14 +22,16 @@ public class AdminAuthorizationFilter implements Filter {
         HttpSession session = request.getSession(false);
 
         if (session == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect("/login");
         } else {
             String role = ((EmployeeDto) session.getAttribute("employee")).getRole().toString();
             if ("ADMIN".equals(role)) {
                 chain.doFilter(req, res);
             } else {
-                response.sendError(403, "У вас недостаточно прав для доступа к этому ресурсу");
+                response.sendRedirect("/forbidden");
             }
         }
+
+        chain.doFilter(req, res);
     }
 }

@@ -15,8 +15,7 @@ public class Employee {
 
     public Employee() {}
 
-    public Employee(Long id, String name, String lastname, String email,
-                    String passwordHash, String passwordSalt, Role role, String position) {
+    public Employee(Long id, String name, String lastname, String email, String passwordHash, String passwordSalt, Role role, String position) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
