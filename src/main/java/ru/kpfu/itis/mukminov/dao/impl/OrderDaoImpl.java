@@ -1,0 +1,323 @@
+package ru.kpfu.itis.mukminov.dao.impl;
+
+import ru.kpfu.itis.mukminov.dao.OrderDao;
+import ru.kpfu.itis.mukminov.dao.exceptions.DaoException;
+import ru.kpfu.itis.mukminov.entity.Order;
+import ru.kpfu.itis.mukminov.entity.Part;
+import ru.kpfu.itis.mukminov.entity.Service;
+import ru.kpfu.itis.mukminov.enums.Status;
+
+import javax.sql.DataSource;
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+public class OrderDaoImpl implements OrderDao {
+    private final DataSource dataSource;
+
+    public OrderDaoImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    @Override
+    public void save(Order order) {
+        String sql = "INSERT INTO repair_orders (equipment_id, technician_id, status, problem_description) VALUES (?, ?, ?, ?)";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setLong(1, order.getEquipmentId());
+            if (order.getTechnicianId() != null) {
+                preparedStatement.setLong(2, order.getTechnicianId());
+            } else {
+                preparedStatement.setNull(2, java.sql.Types.INTEGER);
+            }
+            preparedStatement.setString(3, order.getStatus().name());
+            preparedStatement.setString(4, order.getDescription());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+
+    @Override
+    public void update(Order order) {
+        String sql = "UPDATE repair_orders SET equipment_id = ?, technician_id = ?, status = ?, problem_description = ?, completed_at = ? WHERE id = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setLong(1, order.getEquipmentId());
+            if (order.getTechnicianId() != null) {
+                preparedStatement.setLong(2, order.getTechnicianId());
+            } else {
+                preparedStatement.setNull(2, java.sql.Types.INTEGER);
+            }
+            preparedStatement.setString(3, order.getStatus().name());
+            preparedStatement.setString(4, order.getDescription());
+            if (order.getCompletedAt() != null) {
+                preparedStatement.setTimestamp(5, order.getCompletedAt());
+            } else {
+                preparedStatement.setNull(5, java.sql.Types.TIMESTAMP);
+            }
+            preparedStatement.setLong(6, order.getId());
+            preparedStatement.executeUpdate();
+
+            updateOrderTotalCost(order.getId());
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public void delete(Long id) {
+        String sql = "DELETE FROM repair_orders WHERE id = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public Optional<Order> findById(Long id) {
+        String sql = "SELECT * FROM repair_orders WHERE id = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setLong(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return Optional.of(mapRowToOrder(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public List<Order> findAll() {
+        String sql = "SELECT * FROM repair_orders";
+        List<Order> orders = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    orders.add(mapRowToOrder(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return orders;
+    }
+
+    @Override
+    public List<Order> findByClientId(Long clientId) {
+        String sql = "SELECT repair_orders.* FROM repair_orders ord INNER JOIN equipment eq ON ord.equipment_id = eq.id WHERE eq.client_id = ?";
+        List<Order> orders = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setLong(1, clientId);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    orders.add(mapRowToOrder(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return orders;
+    }
+
+    @Override
+    public void addServiceToOrder(Long orderId, Integer serviceId) {
+        String sql = "INSERT INTO order_services (order_id, service_id) VALUES (?, ?)";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+
+            preparedStatement.setLong(1, orderId);
+            preparedStatement.setLong(2, serviceId);
+            preparedStatement.executeUpdate();
+
+            updateOrderTotalCost(orderId);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public void removeServiceFromOrder(Long orderId, Integer serviceId) {
+        String sql = "DELETE FROM order_services WHERE order_id = ? AND service_id = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+
+            preparedStatement.setLong(1, orderId);
+            preparedStatement.setLong(2, serviceId);
+            preparedStatement.executeUpdate();
+
+            updateOrderTotalCost(orderId);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public List<Service> getServicesByOrder(Long orderId) {
+        String sql =  "SELECT services.* FROM order_services INNER JOIN services ON order_services.service_id = services.id WHERE order_id = ?";
+
+        List<Service> services = new ArrayList<>();
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setLong(1, orderId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    services.add(mapRowToService(resultSet));
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return services;
+    }
+
+
+    @Override
+    public void addPartToOrder(Long orderId, Long partId, int quantity) {
+        String sql = "INSERT INTO order_parts (order_id, part_id, quantity) VALUES (?, ?, ?)";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+
+            preparedStatement.setLong(1, orderId);
+            preparedStatement.setLong(2, partId);
+            preparedStatement.setInt(3, quantity);
+            preparedStatement.executeUpdate();
+
+            updateOrderTotalCost(orderId);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public void removePartFromOrder(Long orderId, Long partId) {
+        String sql = "DELETE FROM order_parts WHERE order_id = ? AND part_id = ?";
+        try (Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+
+            preparedStatement.setLong(1, orderId);
+            preparedStatement.setLong(2, partId);
+            preparedStatement.executeUpdate();
+
+            updateOrderTotalCost(orderId);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    public void updatePartQuantityInOrder(Long orderId, Long partId, int newQuantity) {
+        String sql = "UPDATE order_parts SET quantity = ? WHERE order_id = ? AND part_id = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, newQuantity);
+            ps.setLong(2, orderId);
+            ps.setLong(3, partId);
+            ps.executeUpdate();
+
+            updateOrderTotalCost(orderId);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+
+    @Override
+    public Map<Part, Integer> getPartsByOrder(Long orderId) {
+        String sql = "SELECT parts.*, order_parts.quantity FROM order_parts INNER JOIN parts ON order_parts.part_id = parts.id WHERE order_id = ?";
+
+        Map<Part, Integer> map = new HashMap<>();
+        try (Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setLong(1, orderId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    map.put(mapRowToPart(resultSet), resultSet.getInt("quantity"));
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return map;
+    }
+
+    private void updateOrderTotalCost(Long orderId) {
+        BigDecimal totalCost = calculateTotalCost(orderId);
+        String sql = "UPDATE repair_orders SET total_cost = ? WHERE id = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setBigDecimal(1, totalCost);
+            ps.setLong(2, orderId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    private BigDecimal calculateTotalCost(Long orderId) {
+        BigDecimal totalCost = getPartsByOrder(orderId).entrySet().stream()
+                .map(entry -> entry.getKey().getPrice().multiply(BigDecimal.valueOf(entry.getValue())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .add(getServicesByOrder(orderId).stream()
+                        .map(service -> service.getPrice())
+                        .reduce(BigDecimal.ZERO, BigDecimal::add)
+                );
+        return totalCost;
+    }
+
+    private Order mapRowToOrder(ResultSet row) throws SQLException {
+        Order order = new Order();
+        order.setId(row.getLong("id"));
+        order.setEquipmentId(row.getLong("equipment_id"));
+        order.setTechnicianId(row.getLong("technician_id"));
+        order.setStatus(Status.valueOf(row.getString("status")));
+        order.setDescription(row.getString("problem_description"));
+        order.setCreatedAt(row.getTimestamp("created_at"));
+        order.setCompletedAt(row.getTimestamp("completed_at"));
+        order.setPrice(row.getBigDecimal("price"));
+        return order;
+    }
+
+    private Service mapRowToService(ResultSet row) throws SQLException {
+        Service service = new Service();
+        service.setId(row.getInt("id"));
+        service.setName(row.getString("name"));
+        service.setPrice(row.getBigDecimal("price"));
+        service.setDescription(row.getString("description"));
+        return service;
+    }
+
+    private Part mapRowToPart(ResultSet row) throws SQLException {
+        Part part = new Part();
+        part.setId(row.getLong("id"));
+        part.setName(row.getString("name"));
+        part.setQuantity(row.getInt("quantity_in_stock"));
+        part.setPrice(row.getBigDecimal("price"));
+        return part;
+    }
+}

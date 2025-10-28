@@ -6,8 +6,16 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import ru.kpfu.itis.mukminov.dao.ClientDao;
 import ru.kpfu.itis.mukminov.dao.EmployeeDao;
+import ru.kpfu.itis.mukminov.dao.EquipmentDao;
+import ru.kpfu.itis.mukminov.dao.OrderDao;
+import ru.kpfu.itis.mukminov.dao.PartDao;
+import ru.kpfu.itis.mukminov.dao.ServiceDao;
 import ru.kpfu.itis.mukminov.dao.impl.ClientDaoImpl;
 import ru.kpfu.itis.mukminov.dao.impl.EmployeeDaoImpl;
+import ru.kpfu.itis.mukminov.dao.impl.EquipmentDaoImpl;
+import ru.kpfu.itis.mukminov.dao.impl.OrderDaoImpl;
+import ru.kpfu.itis.mukminov.dao.impl.PartDaoImpl;
+import ru.kpfu.itis.mukminov.dao.impl.ServiceDaoImpl;
 import ru.kpfu.itis.mukminov.service.ClientService;
 import ru.kpfu.itis.mukminov.service.EmployeeService;
 import ru.kpfu.itis.mukminov.service.impl.ClientServiceImpl;
@@ -29,9 +37,15 @@ public class AppContextListener implements ServletContextListener {
 
             ClientDao clientDao = new ClientDaoImpl(dataSource);
             EmployeeDao employeeDao = new EmployeeDaoImpl(dataSource);
+            EquipmentDao equipmentDao = new EquipmentDaoImpl(dataSource);
+            OrderDao orderDao = new OrderDaoImpl(dataSource);
+            PartDao partDao = new PartDaoImpl(dataSource);
+            ServiceDao serviceDao = new ServiceDaoImpl(dataSource);
+
 
             ClientService clientService = new ClientServiceImpl(clientDao);
             EmployeeService employeeService = new EmployeeServiceImpl(employeeDao);
+
 
             sce.getServletContext().setAttribute(DATASOURCE_ATTR, dataSource);
 
