@@ -266,6 +266,17 @@ public class OrderDaoImpl implements OrderDao {
         return map;
     }
 
+    public BigDecimal calculateTotalCost(Long orderId) {
+        BigDecimal totalCost = getPartsByOrder(orderId).entrySet().stream()
+                .map(entry -> entry.getKey().getPrice().multiply(BigDecimal.valueOf(entry.getValue())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .add(getServicesByOrder(orderId).stream()
+                        .map(service -> service.getPrice())
+                        .reduce(BigDecimal.ZERO, BigDecimal::add)
+                );
+        return totalCost;
+    }
+
     private void updateOrderTotalCost(Long orderId) {
         BigDecimal totalCost = calculateTotalCost(orderId);
         String sql = "UPDATE repair_orders SET total_cost = ? WHERE id = ?";
@@ -277,17 +288,6 @@ public class OrderDaoImpl implements OrderDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         }
-    }
-
-    private BigDecimal calculateTotalCost(Long orderId) {
-        BigDecimal totalCost = getPartsByOrder(orderId).entrySet().stream()
-                .map(entry -> entry.getKey().getPrice().multiply(BigDecimal.valueOf(entry.getValue())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add)
-                .add(getServicesByOrder(orderId).stream()
-                        .map(service -> service.getPrice())
-                        .reduce(BigDecimal.ZERO, BigDecimal::add)
-                );
-        return totalCost;
     }
 
     private Order mapRowToOrder(ResultSet row) throws SQLException {

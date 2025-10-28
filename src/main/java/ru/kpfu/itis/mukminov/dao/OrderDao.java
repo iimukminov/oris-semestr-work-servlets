@@ -3,6 +3,8 @@ package ru.kpfu.itis.mukminov.dao;
 import ru.kpfu.itis.mukminov.entity.Order;
 import ru.kpfu.itis.mukminov.entity.Part;
 import ru.kpfu.itis.mukminov.entity.Service;
+
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -27,4 +29,5 @@ public interface OrderDao {
     void updatePartQuantityInOrder(Long orderId, Long partId, int newQuantity);
     Map<Part, Integer> getPartsByOrder(Long orderId);
 
+    BigDecimal calculateTotalCost(Long orderId);
 }

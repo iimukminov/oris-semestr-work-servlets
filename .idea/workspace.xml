@@ -9,10 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee67491f-be1d-4ef3-ad2c-4e87fea6b3a4" name="Changes" comment="Add ServiceDao interface and ServiceDaoImpl for database work">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dao/impl/OrderDaoImpl.java" afterDir="false" />
+    <list default="true" id="ee67491f-be1d-4ef3-ad2c-4e87fea6b3a4" name="Changes" comment="Add OrderDao interface and OrderDaoImpl for database work">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/listener/AppContextListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/listener/AppContextListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dao/ClientDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dao/ClientDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dao/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dao/OrderDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dao/PartDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dao/PartDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dao/impl/OrderDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dao/impl/OrderDaoImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/base.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/base.ftl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -25,8 +27,8 @@
       <list>
         <option value="Exception" />
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -263,7 +265,8 @@
       <workItem from="1761508180837" duration="19514000" />
       <workItem from="1761581917230" duration="1252000" />
       <workItem from="1761583255922" duration="22140000" />
-      <workItem from="1761649096620" duration="1923000" />
+      <workItem from="1761649096620" duration="3638000" />
+      <workItem from="1761663559120" duration="2935000" />
     </task>
     <task id="LOCAL-00001" summary="git commit -m &quot;Add basic FTL pages for project initialization&#10;&#10;- Create authentication templates (login, sign_up)&#10;- Add base FTL template (base.ftl)&#10;- Configure Maven and servlet settings&#10;- Include CSS styles for pages&quot;">
       <option name="closed" value="true" />
@@ -433,7 +436,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761602082522</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Add OrderDao interface and OrderDaoImpl for database work">
+      <option name="closed" value="true" />
+      <created>1761651959784</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1761651959784</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -487,6 +498,7 @@
     <MESSAGE value="Add EquipmentDao interface and EquipmentDaoImpl for database work" />
     <MESSAGE value="Add PartDao interface and PartDaoImpl for database work" />
     <MESSAGE value="Add ServiceDao interface and ServiceDaoImpl for database work" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add ServiceDao interface and ServiceDaoImpl for database work" />
+    <MESSAGE value="Add OrderDao interface and OrderDaoImpl for database work" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add OrderDao interface and OrderDaoImpl for database work" />
   </component>
 </project>
