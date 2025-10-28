@@ -18,8 +18,16 @@ import ru.kpfu.itis.mukminov.dao.impl.PartDaoImpl;
 import ru.kpfu.itis.mukminov.dao.impl.ServiceDaoImpl;
 import ru.kpfu.itis.mukminov.service.ClientService;
 import ru.kpfu.itis.mukminov.service.EmployeeService;
+import ru.kpfu.itis.mukminov.service.EquipmentService;
+import ru.kpfu.itis.mukminov.service.OrderService;
+import ru.kpfu.itis.mukminov.service.PartService;
+import ru.kpfu.itis.mukminov.service.ServiceService;
 import ru.kpfu.itis.mukminov.service.impl.ClientServiceImpl;
 import ru.kpfu.itis.mukminov.service.impl.EmployeeServiceImpl;
+import ru.kpfu.itis.mukminov.service.impl.EquipmentServiceImpl;
+import ru.kpfu.itis.mukminov.service.impl.OrderServiceImpl;
+import ru.kpfu.itis.mukminov.service.impl.PartServiceImpl;
+import ru.kpfu.itis.mukminov.service.impl.ServiceServiceImpl;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.annotation.WebListener;
@@ -45,12 +53,20 @@ public class AppContextListener implements ServletContextListener {
 
             ClientService clientService = new ClientServiceImpl(clientDao);
             EmployeeService employeeService = new EmployeeServiceImpl(employeeDao);
+            EquipmentService equipmentService = new EquipmentServiceImpl(equipmentDao);
+            OrderService orderService = new OrderServiceImpl(orderDao);
+            PartService partService = new PartServiceImpl(partDao);
+            ServiceService serviceService = new ServiceServiceImpl(serviceDao);
 
 
             sce.getServletContext().setAttribute(DATASOURCE_ATTR, dataSource);
 
             sce.getServletContext().setAttribute("clientService", clientService);
             sce.getServletContext().setAttribute("employeeService", employeeService);
+            sce.getServletContext().setAttribute("equipmentService", equipmentService);
+            sce.getServletContext().setAttribute("orderService", orderService);
+            sce.getServletContext().setAttribute("partService", partService);
+            sce.getServletContext().setAttribute("serviceService", serviceService);
 
 
         } catch (Exception e) {
