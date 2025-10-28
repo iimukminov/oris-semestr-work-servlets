@@ -32,7 +32,6 @@ public class StaffAuthorizationFilter implements Filter {
                 response.sendRedirect("/forbidden");
             }
         }
-        chain.doFilter(req, res);
     }
 }
 

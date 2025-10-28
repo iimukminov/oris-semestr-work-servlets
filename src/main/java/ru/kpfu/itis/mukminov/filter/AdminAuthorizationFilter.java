@@ -31,7 +31,5 @@ public class AdminAuthorizationFilter implements Filter {
                 response.sendRedirect("/forbidden");
             }
         }
-
-        chain.doFilter(req, res);
     }
 }
