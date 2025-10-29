@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 public class Order {
     private Long id;
     private Long equipmentId;
-    private Long technicianId;
+    private Long employeeId;
     private Status status;
     private String description;
     private Timestamp createdAt;
@@ -18,20 +18,20 @@ public class Order {
     public Order() {
     }
 
-    public Order(Long id, Long equipmentId, Long technicianId, Status status, String description, Timestamp createdAt, Timestamp completedAt) {
+    public Order(Long id, Long equipmentId, Long employeeId, Status status, String description, Timestamp createdAt, Timestamp completedAt) {
         this.id = id;
         this.equipmentId = equipmentId;
-        this.technicianId = technicianId;
+        this.employeeId = employeeId;
         this.status = status;
         this.description = description;
         this.createdAt = createdAt;
         this.completedAt = completedAt;
     }
 
-    public Order(Long id, Long equipmentId, Long technicianId, Status status, String description, Timestamp createdAt, Timestamp completedAt, BigDecimal price) {
+    public Order(Long id, Long equipmentId, Long employeeId, Status status, String description, Timestamp createdAt, Timestamp completedAt, BigDecimal price) {
         this.id = id;
         this.equipmentId = equipmentId;
-        this.technicianId = technicianId;
+        this.employeeId = employeeId;
         this.status = status;
         this.description = description;
         this.createdAt = createdAt;
@@ -53,11 +53,11 @@ public class Order {
         this.equipmentId = equipmentId;
     }
 
-    public Long getTechnicianId() {
-        return technicianId;
+    public Long getEmployeeId() {
+        return employeeId;
     }
-    public void setTechnicianId(Long technicianId) {
-        this.technicianId = technicianId;
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
     }
 
     public Status getStatus() {

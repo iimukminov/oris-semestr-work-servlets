@@ -11,5 +11,4 @@ public interface PartDao {
 
     Optional<Part> findById(Long id);
     List<Part> findAll();
-
 }

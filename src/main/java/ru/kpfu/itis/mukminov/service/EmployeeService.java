@@ -16,7 +16,7 @@ public interface EmployeeService {
 
     Optional<EmployeeDto> findByEmail(String email);
 
-    List<EmployeeDto> getAllEmployees();
+    List<EmployeeDto> findAll();
 
     List<EmployeeDto> getEmployeesByRole(String role);
 

@@ -38,4 +38,15 @@ public class PartServiceImpl implements PartService {
     public List<Part> findAll() {
         return partDao.findAll();
     }
+
+    @Override
+    public void adjustStockQuantity(Long partId, int quantityDiff) {
+        Part part = findById(partId).orElseThrow(() -> new RuntimeException("Запчасть не найдена: " + partId));
+        int newQuantity = part.getQuantity() + quantityDiff;
+        if (newQuantity < 0) {
+            newQuantity = 0;
+        }
+        part.setQuantity(newQuantity);
+        updatePart(part);
+    }
 }

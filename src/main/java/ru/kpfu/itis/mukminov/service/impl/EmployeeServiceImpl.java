@@ -59,7 +59,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeDto> getAllEmployees() {
+    public List<EmployeeDto> findAll() {
         return employeeDao.findAll().stream()
                 .map(this::convertToDto)
                 .toList();

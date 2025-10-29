@@ -2,9 +2,13 @@ package ru.kpfu.itis.mukminov.dao.impl;
 
 import ru.kpfu.itis.mukminov.dao.OrderDao;
 import ru.kpfu.itis.mukminov.dao.exceptions.DaoException;
+import ru.kpfu.itis.mukminov.dto.PartQuantityDto;
+import ru.kpfu.itis.mukminov.entity.Client;
+import ru.kpfu.itis.mukminov.entity.Employee;
 import ru.kpfu.itis.mukminov.entity.Order;
 import ru.kpfu.itis.mukminov.entity.Part;
 import ru.kpfu.itis.mukminov.entity.Service;
+import ru.kpfu.itis.mukminov.enums.Role;
 import ru.kpfu.itis.mukminov.enums.Status;
 
 import javax.sql.DataSource;
@@ -14,9 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public class OrderDaoImpl implements OrderDao {
@@ -33,8 +35,8 @@ public class OrderDaoImpl implements OrderDao {
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             preparedStatement.setLong(1, order.getEquipmentId());
-            if (order.getTechnicianId() != null) {
-                preparedStatement.setLong(2, order.getTechnicianId());
+            if (order.getEmployeeId() != null) {
+                preparedStatement.setLong(2, order.getEmployeeId());
             } else {
                 preparedStatement.setNull(2, java.sql.Types.INTEGER);
             }
@@ -55,8 +57,8 @@ public class OrderDaoImpl implements OrderDao {
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             preparedStatement.setLong(1, order.getEquipmentId());
-            if (order.getTechnicianId() != null) {
-                preparedStatement.setLong(2, order.getTechnicianId());
+            if (order.getEmployeeId() != null) {
+                preparedStatement.setLong(2, order.getEmployeeId());
             } else {
                 preparedStatement.setNull(2, java.sql.Types.INTEGER);
             }
@@ -124,7 +126,7 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public List<Order> findByClientId(Long clientId) {
-        String sql = "SELECT repair_orders.* FROM repair_orders ord INNER JOIN equipment eq ON ord.equipment_id = eq.id WHERE eq.client_id = ?";
+        String sql = "SELECT repair_orders.* FROM repair_orders INNER JOIN equipment ON repair_orders.equipment_id = equipment.id WHERE equipment.client_id = ?";
         List<Order> orders = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -144,7 +146,7 @@ public class OrderDaoImpl implements OrderDao {
     public void addServiceToOrder(Long orderId, Integer serviceId) {
         String sql = "INSERT INTO order_services (order_id, service_id) VALUES (?, ?)";
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             preparedStatement.setLong(1, orderId);
             preparedStatement.setLong(2, serviceId);
@@ -160,7 +162,7 @@ public class OrderDaoImpl implements OrderDao {
     public void removeServiceFromOrder(Long orderId, Integer serviceId) {
         String sql = "DELETE FROM order_services WHERE order_id = ? AND service_id = ?";
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             preparedStatement.setLong(1, orderId);
             preparedStatement.setLong(2, serviceId);
@@ -173,8 +175,21 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public void removeAllServicesFromOrder(Long orderId) {
+        String sql = "DELETE FROM order_services WHERE order_id = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setLong(1, orderId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+
+    @Override
     public List<Service> getServicesByOrder(Long orderId) {
-        String sql =  "SELECT services.* FROM order_services INNER JOIN services ON order_services.service_id = services.id WHERE order_id = ?";
+        String sql = "SELECT services.* FROM order_services INNER JOIN services ON order_services.service_id = services.id WHERE order_id = ?";
 
         List<Service> services = new ArrayList<>();
 
@@ -200,7 +215,7 @@ public class OrderDaoImpl implements OrderDao {
     public void addPartToOrder(Long orderId, Long partId, int quantity) {
         String sql = "INSERT INTO order_parts (order_id, part_id, quantity) VALUES (?, ?, ?)";
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             preparedStatement.setLong(1, orderId);
             preparedStatement.setLong(2, partId);
@@ -217,7 +232,7 @@ public class OrderDaoImpl implements OrderDao {
     public void removePartFromOrder(Long orderId, Long partId) {
         String sql = "DELETE FROM order_parts WHERE order_id = ? AND part_id = ?";
         try (Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             preparedStatement.setLong(1, orderId);
             preparedStatement.setLong(2, partId);
@@ -229,6 +244,40 @@ public class OrderDaoImpl implements OrderDao {
         }
     }
 
+    @Override
+    public void removeAllPartsFromOrder(Long orderId) {
+        String sql = "DELETE FROM order_parts WHERE order_id = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setLong(1, orderId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public List<PartQuantityDto> getPartsByOrder(Long orderId) {
+        String sql = "SELECT parts.*, order_parts.quantity FROM order_parts INNER JOIN parts ON order_parts.part_id = parts.id WHERE order_id = ?";
+
+        List<PartQuantityDto> parts = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setLong(1, orderId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    parts.add(new PartQuantityDto(mapRowToPart(resultSet), resultSet.getInt("quantity")));
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return parts;
+    }
+
+    @Override
     public void updatePartQuantityInOrder(Long orderId, Long partId, int newQuantity) {
         String sql = "UPDATE order_parts SET quantity = ? WHERE order_id = ? AND part_id = ?";
         try (Connection connection = dataSource.getConnection();
@@ -244,31 +293,10 @@ public class OrderDaoImpl implements OrderDao {
         }
     }
 
-
     @Override
-    public Map<Part, Integer> getPartsByOrder(Long orderId) {
-        String sql = "SELECT parts.*, order_parts.quantity FROM order_parts INNER JOIN parts ON order_parts.part_id = parts.id WHERE order_id = ?";
-
-        Map<Part, Integer> map = new HashMap<>();
-        try (Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setLong(1, orderId);
-
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
-                    map.put(mapRowToPart(resultSet), resultSet.getInt("quantity"));
-                }
-            }
-
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
-        return map;
-    }
-
     public BigDecimal calculateTotalCost(Long orderId) {
-        BigDecimal totalCost = getPartsByOrder(orderId).entrySet().stream()
-                .map(entry -> entry.getKey().getPrice().multiply(BigDecimal.valueOf(entry.getValue())))
+        BigDecimal totalCost = getPartsByOrder(orderId).stream()
+                .map(part -> part.getPart().getPrice().multiply(BigDecimal.valueOf(part.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add)
                 .add(getServicesByOrder(orderId).stream()
                         .map(service -> service.getPrice())
@@ -290,16 +318,37 @@ public class OrderDaoImpl implements OrderDao {
         }
     }
 
+    private Client mapRowToClient(ResultSet row) throws SQLException {
+        Client client = new Client();
+        client.setId(row.getLong("id"));
+        client.setName(row.getString("name"));
+        client.setLastname(row.getString("lastname"));
+        client.setPhoneNumber(row.getString("phone_number"));
+        client.setEmail(row.getString("email"));
+        return client;
+    }
+
+    private Employee mapRowToEmployee(ResultSet row) throws SQLException {
+        Employee employee = new Employee();
+        employee.setId(row.getLong("id"));
+        employee.setName(row.getString("name"));
+        employee.setLastname(row.getString("lastname"));
+        employee.setEmail(row.getString("email"));
+        employee.setRole(Role.valueOf(row.getString("role")));
+        employee.setPosition(row.getString("position"));
+        return employee;
+    }
+
     private Order mapRowToOrder(ResultSet row) throws SQLException {
         Order order = new Order();
         order.setId(row.getLong("id"));
         order.setEquipmentId(row.getLong("equipment_id"));
-        order.setTechnicianId(row.getLong("technician_id"));
+        order.setEmployeeId(row.getLong("technician_id"));
         order.setStatus(Status.valueOf(row.getString("status")));
         order.setDescription(row.getString("problem_description"));
         order.setCreatedAt(row.getTimestamp("created_at"));
         order.setCompletedAt(row.getTimestamp("completed_at"));
-        order.setPrice(row.getBigDecimal("price"));
+        order.setPrice(row.getBigDecimal("total_cost"));
         return order;
     }
 

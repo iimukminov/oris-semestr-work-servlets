@@ -12,4 +12,6 @@ public interface PartService {
 
     Optional<Part> findById(Long id);
     List<Part> findAll();
+
+    void adjustStockQuantity(Long partId, int quantityDiff);
 }

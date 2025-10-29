@@ -57,7 +57,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public List<ClientDto> getAllClients() {
+    public List<ClientDto> findAll() {
         return clientDao.findAll().stream()
                 .map(this::convertToDto)
                 .toList();

@@ -14,7 +14,7 @@ public interface ClientService {
 
     Optional<ClientDto> findByEmail(String email);
 
-    List<ClientDto> getAllClients();
+    List<ClientDto> findAll();
 
     void updateClient(Long id, String name, String lastname, String phoneNumber, String email, String password);
 
