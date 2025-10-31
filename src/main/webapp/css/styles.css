@@ -19,7 +19,7 @@ main {
 }
 
 header {
-    background-color: #5a67d8;
+    background-color: #6e94fb;
     color: #fff;
     padding: 1rem 2rem;
     display: flex;
@@ -81,7 +81,7 @@ form input[type="password"] {
 }
 
 button[type="submit"] {
-    background-color: #5a67d8;
+    background-color: #6e94fb;
     color: white;
     padding: 12px 20px;
     border: none;
@@ -92,7 +92,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: #434190;
+    background-color: #6e94fb;
 }
 
 table {
@@ -120,7 +120,7 @@ tbody tr:hover {
 }
 
 td a {
-    color: #5a67d8;
+    color: #6e94fb;
     text-decoration: none;
     font-weight: bold;
 }
