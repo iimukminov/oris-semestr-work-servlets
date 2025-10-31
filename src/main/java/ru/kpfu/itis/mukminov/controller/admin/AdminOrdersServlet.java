@@ -4,6 +4,7 @@ import ru.kpfu.itis.mukminov.dto.EmployeeDto;
 import ru.kpfu.itis.mukminov.dto.OrderDto;
 import ru.kpfu.itis.mukminov.dto.PartQuantityDto;
 import ru.kpfu.itis.mukminov.entity.Order;
+import ru.kpfu.itis.mukminov.entity.Part;
 import ru.kpfu.itis.mukminov.enums.Role;
 import ru.kpfu.itis.mukminov.enums.Status;
 import ru.kpfu.itis.mukminov.service.EmployeeService;
@@ -83,8 +84,6 @@ public class AdminOrdersServlet extends HttpServlet {
                     order.setCompletedAt(null);
                 }
 
-                orderService.updateOrder(order);
-
 
                 String servicesParam = req.getParameter("services");
                 orderService.removeAllServicesFromOrder(orderId);
@@ -95,8 +94,6 @@ public class AdminOrdersServlet extends HttpServlet {
                         orderService.addServiceToOrder(orderId, serviceId);
                     }
                 }
-
-
 
                 String partsParam = req.getParameter("parts");
                 List<PartQuantityDto> currentParts = orderService.getPartsByOrder(orderId);
@@ -126,6 +123,9 @@ public class AdminOrdersServlet extends HttpServlet {
                         }
                     }
                 }
+
+                orderService.updateOrder(order);
+
             } else if ("delete".equals(action)) {
                 Long id = Long.valueOf(req.getParameter("id"));
                 orderService.deleteOrder(id);

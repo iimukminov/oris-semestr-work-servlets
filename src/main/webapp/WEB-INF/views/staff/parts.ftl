@@ -22,7 +22,7 @@
             <#list parts as part>
                 <tr data-part-id="${part.id}">
                     <td><span class="readonly">${part.name}</span></td>
-                    <td><span class="readonly">${part.quantity!}</span></td>
+                    <td><span class="readonly">${part.quantity!0}</span></td>
                     <td><span class="readonly">${part.price} ₽</span></td>
                 </tr>
             </#list>

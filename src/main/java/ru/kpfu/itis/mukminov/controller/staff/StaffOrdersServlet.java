@@ -38,11 +38,11 @@ public class StaffOrdersServlet extends HttpServlet {
         EmployeeDto staff = (EmployeeDto) req.getSession().getAttribute("employee");
 
         List<OrderDto> freeOrders = orderService.findAllOrderDto().stream()
-                .filter(o -> o.getTechnician() == null).sorted().collect(Collectors.toList());
-
+                .filter(o -> o.getTechnician() == null).collect(Collectors.toList());
+        freeOrders.sort(null);
         List<OrderDto> myOrders = orderService.findAllOrderDto().stream()
-                .filter(o -> o.getTechnician() != null && o.getTechnician().getId().equals(staff.getId())).sorted().collect(Collectors.toList());
-
+                .filter(o -> o.getTechnician() != null && o.getTechnician().getId().equals(staff.getId())).collect(Collectors.toList());
+        myOrders.sort(null);
         req.setAttribute("freeOrders", freeOrders);
         req.setAttribute("myOrders", myOrders);
         req.setAttribute("services", serviceService.findAll());
@@ -79,8 +79,6 @@ public class StaffOrdersServlet extends HttpServlet {
                     order.setCompletedAt(null);
                 }
 
-                orderService.updateOrder(order);
-
 
                 String servicesParam = req.getParameter("services");
                 orderService.removeAllServicesFromOrder(orderId);
@@ -91,7 +89,6 @@ public class StaffOrdersServlet extends HttpServlet {
                         orderService.addServiceToOrder(orderId, serviceId);
                     }
                 }
-
 
                 String partsParam = req.getParameter("parts");
                 List<PartQuantityDto> currentParts = orderService.getPartsByOrder(orderId);
@@ -119,6 +116,8 @@ public class StaffOrdersServlet extends HttpServlet {
                         }
                     }
                 }
+
+                orderService.updateOrder(order);
             }
         } catch (Exception e) {
             req.setAttribute("error", "Ошибка: " + e.getMessage());

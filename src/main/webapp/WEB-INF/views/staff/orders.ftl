@@ -234,10 +234,41 @@
                     selectedParts.push(partId + ":" + qty);
                 });
 
+                var servicesData = [];
+                $tr.find('input[type="checkbox"][name="services"]').each(function () {
+                    var id = $(this).val();
+                    var checked = $(this).is(':checked') ? "1" : "0";
+                    servicesData.push(id + ":" + checked);
+                });
+
+                var selectedParts = [];
+                $tr.find('input[type="checkbox"][name="parts"]').each(function () {
+                    var partId = $(this).val();
+                    var checked = $(this).is(':checked');
+                    var qtyInput = $tr.find('input[name="part_quantity_' + partId + '"]');
+                    var qty = qtyInput.length ? qtyInput.val() : 0;
+                    if (!checked) {
+                        qty = 0;
+                    }
+                    selectedParts.push(partId + ":" + qty);
+                });
+
                 $form.find('.editStatus').val($tr.find('select[name="status"]').val());
                 $form.find('.editCompletedAt').val($tr.find('input[name="completedAt"]').val());
                 $form.find('input[name="services"]').val(selectedServices.join(","));
                 $form.find('input[name="parts"]').val(selectedParts.join(","));
+            });
+
+            $('input[type="number"][name^="part_quantity_"]').on('input', function () {
+                var max = parseInt($(this).attr('max')) || 1;
+                var val = parseInt($(this).val());
+
+                if (val > max) {
+                    $(this).val(max);
+                }
+                if (val < 0 || isNaN(val)) {
+                    $(this).val(0);
+                }
             });
         });
     </script>

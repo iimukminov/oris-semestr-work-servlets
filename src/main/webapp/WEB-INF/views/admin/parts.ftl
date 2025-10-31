@@ -37,7 +37,7 @@
                         <input type="text" class="editfield" name="name" value="${part.name}" style="display:none;"
                                required></td>
                     <td><span class="readonly">${part.quantity!}</span>
-                        <input type="number" class="editfield" name="quantityInStock" value="${part.quantity!}"
+                        <input type="number" class="editfield" name="quantityInStock" value="${part.quantity!0}"
                                style="display:none;" required></td>
                     <td><span class="readonly">${part.price} ₽</span>
                         <input type="number" class="editfield" name="price" value="${part.price}" min="0" step="0.01"

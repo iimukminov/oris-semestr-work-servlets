@@ -112,7 +112,7 @@
                                             </#if>>
                                     ${partOption.name}
                                 </label>
-                                <input type="number" name="part_quantity_${partOption.id}" min="1" step="1"
+                                <input type="number" name="part_quantity_${partOption.id}" min="0" step="1"
                                        max="<#list parts as p><#if p.id == partOption.id>${p.quantity}</#if></#list>"
                                        value="<#local q=0><#list order.parts as partQuantity><#if partQuantity.part.id == partOption.id><#local q=partQuantity.quantity></#if></#list>${q}"
                                        style="width: 60px; margin-bottom: 5px;">
@@ -174,10 +174,14 @@
                 });
 
                 var selectedParts = [];
-                $tr.find('input[type="checkbox"][name="parts"]:checked').each(function () {
+                $tr.find('input[type="checkbox"][name="parts"]').each(function () {
                     var partId = $(this).val();
+                    var checked = $(this).is(':checked');
                     var qtyInput = $tr.find('input[name="part_quantity_' + partId + '"]');
-                    var qty = qtyInput.length ? qtyInput.val() : 1;
+                    var qty = qtyInput.length ? qtyInput.val() : 0;
+                    if (!checked) {
+                        qty = 0;
+                    }
                     selectedParts.push(partId + ":" + qty);
                 });
 
@@ -204,8 +208,8 @@
                 if (val > max) {
                     $(this).val(max);
                 }
-                if (val < 1 || isNaN(val)) {
-                    $(this).val(1);
+                if (val < 0 || isNaN(val)) {
+                    $(this).val(0);
                 }
             });
         });
