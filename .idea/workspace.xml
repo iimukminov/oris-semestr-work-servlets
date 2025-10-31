@@ -9,10 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee67491f-be1d-4ef3-ad2c-4e87fea6b3a4" name="Changes" comment="Refactor: clean up code, improve methods, and enhance structure across controllers, services, and templates">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/styles.css" afterDir="false" />
-    </list>
+    <list default="true" id="ee67491f-be1d-4ef3-ad2c-4e87fea6b3a4" name="Changes" comment="Add user views and servlets: dashboard, equipments,orders, profile; implement functionality for user equipment and orders management." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -267,7 +264,7 @@
       <workItem from="1761715742786" duration="4423000" />
       <workItem from="1761756093061" duration="32062000" />
       <workItem from="1761842512990" duration="204000" />
-      <workItem from="1761844045818" duration="24730000" />
+      <workItem from="1761844045818" duration="27813000" />
     </task>
     <task id="LOCAL-00001" summary="git commit -m &quot;Add basic FTL pages for project initialization&#10;&#10;- Create authentication templates (login, sign_up)&#10;- Add base FTL template (base.ftl)&#10;- Configure Maven and servlet settings&#10;- Include CSS styles for pages&quot;">
       <option name="closed" value="true" />
@@ -517,7 +514,31 @@
       <option name="project" value="LOCAL" />
       <updated>1761902319063</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Add ErrorServlet for centralized application error handling">
+      <option name="closed" value="true" />
+      <created>1761908883464</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1761908883464</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Implemented staff management features for orders, parts, services, and users">
+      <option name="closed" value="true" />
+      <created>1761921822799</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1761921822799</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Add user views and servlets: dashboard, equipments,orders, profile; implement functionality for user equipment and orders management.">
+      <option name="closed" value="true" />
+      <created>1761922004999</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1761922004999</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -550,9 +571,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add ClientService interface and ClientServiceImpl for work with ClientDao" />
-    <MESSAGE value="Add EmployeeService interface and EmployeeServiceImpl for work with EmployeeDao" />
-    <MESSAGE value="Add SignUpServlet for register new clients" />
     <MESSAGE value="Add LoginServlet for clients and employees authentication" />
     <MESSAGE value="Add LogoutServlet to handle user logout" />
     <MESSAGE value="Refactor Employee: change role from String to Role enum" />
@@ -575,6 +593,9 @@
     <MESSAGE value="Update and extend admin panel functionality: added state management and improved usability for administration features" />
     <MESSAGE value="Implemented admin management features for requests, parts, services, and users (employees and clients)" />
     <MESSAGE value="Refactor: clean up code, improve methods, and enhance structure across controllers, services, and templates" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor: clean up code, improve methods, and enhance structure across controllers, services, and templates" />
+    <MESSAGE value="Add ErrorServlet for centralized application error handling" />
+    <MESSAGE value="Implemented staff management features for orders, parts, services, and users" />
+    <MESSAGE value="Add user views and servlets: dashboard, equipments,orders, profile; implement functionality for user equipment and orders management." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add user views and servlets: dashboard, equipments,orders, profile; implement functionality for user equipment and orders management." />
   </component>
 </project>

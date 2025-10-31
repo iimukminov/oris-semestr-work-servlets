@@ -26,7 +26,11 @@
     </error-page>
 
     <error-page>
-        <exception-type>java.lang.Throwable</exception-type>
+        <error-code>403</error-code>
+        <location>/forbidden</location>
+    </error-page>
+
+    <error-page>
         <location>/error</location>
     </error-page>
 
