@@ -18,6 +18,19 @@ public class Order {
     public Order() {
     }
 
+    public Order(Long equipmentId, Status status, String description) {
+        this.equipmentId = equipmentId;
+        this.status = status;
+        this.description = description;
+    }
+
+    public Order(Long id, Long equipmentId, Status status, String description) {
+        this.id = id;
+        this.equipmentId = equipmentId;
+        this.status = status;
+        this.description = description;
+    }
+
     public Order(Long id, Long equipmentId, Long employeeId, Status status, String description, Timestamp createdAt, Timestamp completedAt) {
         this.id = id;
         this.equipmentId = equipmentId;

@@ -101,8 +101,8 @@ public class EmployeeServiceImpl implements EmployeeService {
                 name,
                 lastname,
                 email,
-                salt,
                 hashedPassword,
+                salt,
                 role,
                 position
         );

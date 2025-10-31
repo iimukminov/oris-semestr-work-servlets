@@ -17,7 +17,7 @@
             <label>Количество:<input type="number" name="quantityInStock" min="0" required></label><br>
             <label>Цена:<input type="number" name="price" min="0" step="0.01" required></label><br>
             <button type="submit">Сохранить</button>
-            <button type="button" onclick="document.getElementById('addPartForm').style.display='none'">Отмена</button>
+            <button type="button" id="cancelAddBtn">Отмена</button>
         </form>
     </div>
     <table border="1" id="partsTable">
@@ -35,8 +35,8 @@
                 <td><span class="readonly">${part.name}</span>
                     <input type="text" class="editfield" name="name" value="${part.name}" style="display:none;" required></td>
                 <td><span class="readonly">${part.quantity!}</span>
-                    <input type="number" class="editfield" name="quantityInStock" value="${part.quantityInStock!}" style="display:none;" required></td>
-                <td><span class="readonly">${part.price}</span>
+                    <input type="number" class="editfield" name="quantityInStock" value="${part.quantity!}" style="display:none;" required></td>
+                <td><span class="readonly">${part.price} ₽</span>
                     <input type="number" class="editfield" name="price" value="${part.price}" min="0" step="0.01" style="display:none;" required></td>
                 <td>
                     <button type="button" class="editBtn">Редактировать</button>
@@ -60,43 +60,42 @@
         </tbody>
     </table>
     <script>
-        document.getElementById('showAddPartBtn').onclick = function() {
-            document.getElementById('addPartForm').style.display = 'block';
-        };
-        document.querySelectorAll('.editBtn').forEach(function(btn){
-            btn.onclick = function() {
-                var tr = btn.closest('tr');
-                tr.querySelectorAll('.readonly').forEach(function(el){ el.style.display='none'; });
-                tr.querySelectorAll('.editfield').forEach(function(el){ el.style.display='inline'; });
-                btn.style.display = 'none';
-                tr.querySelector('.editForm').style.display = 'inline';
-            };
+        $('#showAddPartBtn').click(function() {
+            $('#addPartForm').show();
+            $(this).hide();
         });
-        document.querySelectorAll('.cancelBtn').forEach(function(btn){
-            btn.onclick = function() {
-                var tr = btn.closest('tr');
-                tr.querySelectorAll('.editfield').forEach(function(el){ el.style.display='none'; });
-                tr.querySelectorAll('.readonly').forEach(function(el){ el.style.display='inline'; });
-                tr.querySelector('.editBtn').style.display = 'inline';
-                tr.querySelector('.editForm').style.display = 'none';
-            };
+        $('#cancelAddBtn').click(function() {
+            $('#addPartForm').hide();
+            $('#showAddPartBtn').show();
         });
-        document.querySelectorAll('.editForm').forEach(function(form){
-            form.onsubmit = function() {
-                var tr = form.closest('tr');
-                form.querySelector('.editName').value = tr.querySelector('input[name="name"]').value;
-                form.querySelector('.editQuantity').value = tr.querySelector('input[name="quantityInStock"]').value;
-                form.querySelector('.editPrice').value = tr.querySelector('input[name="price"]').value;
-            };
+        $('.editBtn').click(function() {
+            var tr = $(this).closest('tr');
+            tr.find('.readonly').hide();
+            tr.find('.editfield').show();
+            $(this).hide();
+            tr.find('.editForm').show();
         });
-        document.querySelectorAll('.deleteBtn').forEach(function(btn){
-            btn.onclick = function() {
-                var tr = btn.closest('tr');
-                var name = tr.querySelector('span.readonly').innerText;
-                if (confirm('Удалить запчасть "' + name + '"? Это действие нельзя отменить!')) {
-                    btn.closest('form.deleteForm').submit();
-                }
-            };
+        $('.cancelBtn').click(function() {
+            var tr = $(this).closest('tr');
+            tr.find('.editfield').hide();
+            tr.find('.readonly').show();
+            tr.find('.editBtn').show();
+            tr.find('.editForm').hide();
+        });
+        $('.editForm').submit(function() {
+            var form = $(this);
+            var tr = form.closest('tr');
+            form.find('.editName').val(tr.find('input[name="name"]').val());
+            form.find('.editQuantity').val(tr.find('input[name="quantityInStock"]').val());
+            form.find('.editPrice').val(tr.find('input[name="price"]').val());
+        });
+        $('.deleteBtn').click(function() {
+            var btn = $(this);
+            var tr = btn.closest('tr');
+            var name = tr.find('span.readonly').text();
+            if (confirm('Удалить запчасть "' + name + '"? Это действие нельзя отменить!')) {
+                btn.closest('form.deleteForm').submit();
+            }
         });
     </script>
 </#macro>

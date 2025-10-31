@@ -161,55 +161,73 @@
     </table>
 
     <script>
-        document.getElementById('showAddEmployeeBtn').onclick = function() {
-            document.getElementById('addEmployeeForm').style.display = 'block';
-        };
-        document.getElementById('showAddClientBtn').onclick = function() {
-            document.getElementById('addClientForm').style.display = 'block';
-        };
-        document.querySelectorAll('.editBtn').forEach(function(btn) {
-            btn.onclick = function() {
-                var tr = btn.closest('tr');
-                tr.querySelectorAll('.readonly').forEach(function(el){ el.style.display='none'; });
-                tr.querySelectorAll('.editfield').forEach(function(el){ el.style.display='inline'; });
-                btn.style.display = 'none';
-                tr.querySelector('.editForm').style.display = 'inline';
-            };
-        });
-        document.querySelectorAll('.cancelBtn').forEach(function(btn) {
-            btn.onclick = function() {
-                var tr = btn.closest('tr');
-                tr.querySelectorAll('.editfield').forEach(function(el){ el.style.display='none'; });
-                tr.querySelectorAll('.readonly').forEach(function(el){ el.style.display='inline'; });
-                tr.querySelector('.editBtn').style.display = 'inline';
-                tr.querySelector('.editForm').style.display = 'none';
-            };
-        });
-        document.querySelectorAll('.editForm').forEach(function(form){
-            form.onsubmit = function() {
+        $(document).ready(function () {
+            $('#showAddEmployeeBtn').click(function() {
+                $('#addEmployeeForm').show();
+                $(this).hide();
+            });
+            $('#showAddClientBtn').click(function() {
+                $('#addClientForm').show();
+                $(this).hide();
+            });
+
+            $('.editBtn').click(function() {
+                var tr = $(this).closest('tr');
+                tr.find('.readonly').hide();
+                tr.find('.editfield').css('display', 'inline');
+                $(this).hide();
+                tr.find('.editForm').css('display', 'inline');
+            });
+
+            $('.cancelBtn').click(function() {
+                var tr = $(this).closest('tr');
+                tr.find('.editfield').hide();
+                tr.find('.readonly').css('display', 'inline');
+                tr.find('.editBtn').show();
+                tr.find('.editForm').hide();
+            });
+
+            $('.editForm').submit(function() {
+                var form = $(this);
                 var tr = form.closest('tr');
-                form.querySelector('.editName').value = tr.querySelector('input[name="name"]').value;
-                form.querySelector('.editLastname').value = tr.querySelector('input[name="lastname"]').value;
-                form.querySelector('.editEmail').value = tr.querySelector('input[name="email"]').value;
-                var phone = tr.querySelector('input[name="phoneNumber"]');
-                if (phone) form.querySelector('.editPhoneNumber').value = phone.value;
-                var role = tr.querySelector('select[name="role"]');
-                if (role) form.querySelector('.editRole').value = role.value;
-                var position = tr.querySelector('input[name="position"]');
-                if (position) form.querySelector('.editPosition').value = position.value;
-                form.querySelector('.editPassword').value = tr.querySelector('input[name="password"]').value;
-            };
-        });
-        document.querySelectorAll('.deleteBtn').forEach(function(btn) {
-            btn.onclick = function() {
+
+                form.find('.editName').val(tr.find('input[name="name"]').val());
+                form.find('.editLastname').val(tr.find('input[name="lastname"]').val());
+                form.find('.editEmail').val(tr.find('input[name="email"]').val());
+
+                var phone = tr.find('input[name="phoneNumber"]');
+                if (phone.length > 0) {
+                    form.find('.editPhoneNumber').val(phone.val());
+                }
+
+                var role = tr.find('select[name="role"]');
+                if (role.length > 0) {
+                    form.find('.editRole').val(role.val());
+                }
+
+                var position = tr.find('input[name="position"]');
+                if (position.length > 0) {
+                    form.find('.editPosition').val(position.val());
+                }
+
+                form.find('.editPassword').val(tr.find('input[name="password"]').val());
+            });
+
+            $('.deleteBtn').click(function() {
+                var btn = $(this);
                 var tr = btn.closest('tr');
-                var name = tr.querySelector('span.readonly').innerText;
-                if (confirm('Удалить пользователя "' + name + '"? Это действие нельзя отменить!')) {
+
+                var name = tr.find('span.readonly').eq(0).text();
+                var email = tr.find('span.readonly').eq(2).text();
+
+                var fullName = [name, email].filter(Boolean).join(' ');
+                if (confirm('Удалить пользователя "' + fullName + '"? Это действие нельзя отменить!')) {
                     btn.closest('form.deleteForm').submit();
                 }
-            };
+            });
         });
     </script>
+
 </#macro>
 
 <@display_page/>

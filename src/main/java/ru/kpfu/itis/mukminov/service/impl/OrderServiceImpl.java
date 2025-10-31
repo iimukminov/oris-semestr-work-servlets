@@ -90,16 +90,11 @@ public class OrderServiceImpl implements OrderService {
         Optional<Client> client = clientDao.findById(clientId);
         ClientDto clientDto = client.map(this::convertClientToDto).orElse(null);
 
-
         List<OrderClientDto> orderDtoList = new ArrayList<>();
 
         for (Order order : orders) {
             Equipment equipment = equipmentDao.findById(order.getEquipmentId()).orElse(null);
-            orderDtoList.add(convertOrderToClientDto(
-                    order,
-                    clientDto,
-                    equipment)
-            );
+            orderDtoList.add(convertOrderToClientDto(order, equipment));
         }
         return orderDtoList;
     }
@@ -191,7 +186,7 @@ public class OrderServiceImpl implements OrderService {
         );
     }
 
-    private OrderClientDto convertOrderToClientDto(Order order, ClientDto clientDto, Equipment equipment) {
+    private OrderClientDto convertOrderToClientDto(Order order, Equipment equipment) {
         return new OrderClientDto(
                 order.getId(),
                 equipment,
@@ -200,7 +195,6 @@ public class OrderServiceImpl implements OrderService {
                 order.getCreatedAt(),
                 order.getCompletedAt(),
                 order.getPrice(),
-                clientDto,
                 getPartsByOrder(order.getId()),
                 getServicesByOrder(order.getId())
         );

@@ -16,11 +16,11 @@
     <form action="/sign-up" method="post">
         <div>
             <label for="name">Имя:</label>
-            <input type="text" id="name" name="name" required>
+            <input type="text" id="name" name="name" required minlength="2" maxlength="32">
         </div>
         <div>
             <label for="lastname">Фамилия:</label>
-            <input type="text" id="lastname" name="lastname" required>
+            <input type="text" id="lastname" name="lastname" required minlength="2" maxlength="32">
         </div>
         <div>
             <label for="email">Email:</label>

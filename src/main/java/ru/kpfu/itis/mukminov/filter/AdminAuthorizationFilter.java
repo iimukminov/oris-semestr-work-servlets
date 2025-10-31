@@ -23,6 +23,8 @@ public class AdminAuthorizationFilter implements Filter {
 
         if (session == null) {
             response.sendRedirect("/login");
+        } else if (session.getAttribute("userType").equals("client")) {
+            response.sendRedirect("/forbidden");
         } else {
             String role = ((EmployeeDto) session.getAttribute("employee")).getRole().toString();
             if ("ADMIN".equals(role)) {

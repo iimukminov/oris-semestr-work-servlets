@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class OrderDto {
+public class OrderDto implements Comparable<OrderDto> {
     private Long id;
     private Equipment equipment;
     private EmployeeDto technician;
@@ -23,6 +23,14 @@ public class OrderDto {
     private List<PartQuantityDto> parts;
     private List<Service> services;
 
+    @Override
+    public int compareTo(OrderDto other) {
+        int statusCompare = Integer.compare(this.getStatus().getPriority(), other.getStatus().getPriority());
+        if (statusCompare != 0) {
+            return statusCompare;
+        }
+        return other.getCreatedAt().compareTo(this.getCreatedAt());
+    }
 
     public OrderDto() {
     }

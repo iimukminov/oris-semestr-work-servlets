@@ -1,7 +1,7 @@
 <#macro page_head>
     <meta charset="UTF-8">
     <title>${title!"Сервис-Центр"}</title>
-    <link rel="stylesheet" href="/static/css/main.css">
+
 </#macro>
 
 <#macro page_body>
@@ -12,11 +12,15 @@
     <!DOCTYPE html>
     <html lang="ru">
     <head>
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+        <link rel="stylesheet" href="/css/styles.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+              rel="stylesheet">
         <@page_head/>
     </head>
     <body>
     <header>
-        <h1><a href="/">Сервис-Центр "Техно-Ремонт"</a></h1>
+        <h1><a href="/dashboard">Сервис-Центр "Техно-Ремонт"</a></h1>
         <nav>
             <#if user??>
                 <span>Привет, ${user.name}!</span>
@@ -39,12 +43,12 @@
 
                 <#-- Для обычного пользователя -->
                 <#else>
-                    <a href="/dashboard">Главная</a>
-                    <a href="/equipment/list">Оборудование</a>
-                    <a href="/order/list">Мои заявки</a>
+                    <a href="/user/equipments">Оборудование</a>
+                    <a href="/user/orders">Мои заявки</a>
                 </#if>
 
                 <a href="/profile">Профиль</a>
+                <a href="https://t.me/+9KZfb2odfuQ5YmVi" target="_blank" rel="noopener noreferrer" title="Связаться через Telegram">Свяжитесь с нами в Telegram</a>
                 <a href="/logout">Выйти</a>
 
             <#else>

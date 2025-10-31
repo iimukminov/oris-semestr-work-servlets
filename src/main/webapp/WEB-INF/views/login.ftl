@@ -24,6 +24,8 @@
         </div>
         <button type="submit">Войти</button>
     </form>
+    <br><br>
+    <a href="/sign-up">Нет аккаунта?</a>
 </#macro>
 
 <@display_page/>

@@ -55,7 +55,7 @@ public class LoginServlet extends HttpServlet {
                 if (employeeOpt.get().getRole() == Role.ADMIN) {
                     resp.sendRedirect("/admin/users");
                 } else {
-                    resp.sendRedirect("/staff/order");
+                    resp.sendRedirect("/staff/orders");
                 }
                 return;
             }
@@ -69,7 +69,7 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("client", clientOpt.get());
                 session.setAttribute("userType", "client");
                 session.setMaxInactiveInterval(30 * 60);
-                resp.sendRedirect("/home");
+                resp.sendRedirect("/user/equipments");
                 return;
             }
         }

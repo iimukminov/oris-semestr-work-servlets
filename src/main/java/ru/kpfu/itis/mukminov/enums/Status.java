@@ -1,7 +1,17 @@
 package ru.kpfu.itis.mukminov.enums;
 
 public enum Status {
-    NEW,
-    IN_PROGRESS,
-    COMPLETED
+    NEW(0),
+    IN_PROGRESS(1),
+    COMPLETED(2);
+
+    private final int priority;
+
+    Status(int priority) {
+        this.priority = priority;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
 }

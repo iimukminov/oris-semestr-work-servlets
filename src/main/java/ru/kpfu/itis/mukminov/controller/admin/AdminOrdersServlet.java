@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -41,6 +42,9 @@ public class AdminOrdersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<OrderDto> orders = orderService.findAllOrderDto();
+        orders.sort(null);
+
+
         List<EmployeeDto> employees = employeeService.findAll();
         req.setAttribute("orders", orders);
         req.setAttribute("employees", employees);
@@ -49,6 +53,8 @@ public class AdminOrdersServlet extends HttpServlet {
         req.setAttribute("user", req.getSession(false) != null ? req.getSession(false).getAttribute("employee") : null);
         req.getRequestDispatcher("/WEB-INF/views/admin/orders.ftl").forward(req, resp);
     }
+
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

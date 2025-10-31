@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class OrderClientDto {
+public class OrderClientDto implements Comparable<OrderClientDto> {
     private Long id;
     private Equipment equipment;
     private Status status;
@@ -18,15 +18,22 @@ public class OrderClientDto {
     private Timestamp createdAt;
     private Timestamp completedAt;
     private BigDecimal totalCost;
-    private ClientDto client;
     private List<PartQuantityDto> parts;
     private List<Service> services;
 
+    @Override
+    public int compareTo(OrderClientDto other) {
+        int statusCompare = Integer.compare(this.getStatus().getPriority(), other.getStatus().getPriority());
+        if (statusCompare != 0) {
+            return statusCompare;
+        }
+        return other.getCreatedAt().compareTo(this.getCreatedAt());
+    }
 
     public OrderClientDto() {
     }
 
-    public OrderClientDto(Long id, Equipment equipment, Status status, String description, Timestamp createdAt, Timestamp completedAt, BigDecimal totalCost, ClientDto client, List<PartQuantityDto> parts, List<Service> services) {
+    public OrderClientDto(Long id, Equipment equipment, Status status, String description, Timestamp createdAt, Timestamp completedAt, BigDecimal totalCost , List<PartQuantityDto> parts, List<Service> services) {
         this.id = id;
         this.equipment = equipment;
         this.status = status;
@@ -34,7 +41,6 @@ public class OrderClientDto {
         this.createdAt = createdAt;
         this.completedAt = completedAt;
         this.totalCost = totalCost;
-        this.client = client;
         this.parts = parts;
         this.services = services;
     }
@@ -65,10 +71,6 @@ public class OrderClientDto {
 
     public BigDecimal getTotalCost() {
         return totalCost;
-    }
-
-    public ClientDto getClient() {
-        return client;
     }
 
     public List<PartQuantityDto> getParts() {

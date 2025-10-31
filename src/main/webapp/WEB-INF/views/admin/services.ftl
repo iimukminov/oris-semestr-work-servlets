@@ -36,7 +36,7 @@
                     <input type="text" class="editfield" name="name" value="${service.name}" style="display:none;" required></td>
                 <td><span class="readonly">${service.description!}</span>
                     <input type="text" class="editfield" name="description" value="${service.description!}" style="display:none;"></td>
-                <td><span class="readonly">${service.price}</span>
+                <td><span class="readonly">${service.price} ₽</span>
                     <input type="number" class="editfield" name="price" value="${service.price}" min="0" step="0.01" style="display:none;" required></td>
                 <td>
                     <button type="button" class="editBtn">Редактировать</button>
@@ -60,44 +60,44 @@
         </tbody>
     </table>
     <script>
-        document.getElementById('showAddServiceBtn').onclick = function() {
-            document.getElementById('addServiceForm').style.display = 'block';
-        };
-        document.querySelectorAll('.editBtn').forEach(function(btn){
-            btn.onclick = function() {
-                var tr = btn.closest('tr');
-                tr.querySelectorAll('.readonly').forEach(function(el){ el.style.display='none'; });
-                tr.querySelectorAll('.editfield').forEach(function(el){ el.style.display='inline'; });
-                btn.style.display = 'none';
-                tr.querySelector('.editForm').style.display = 'inline';
-            };
+        $('#showAddServiceBtn').click(function() {
+            $('#addServiceForm').show();
+            $(this).hide();
         });
-        document.querySelectorAll('.cancelBtn').forEach(function(btn){
-            btn.onclick = function() {
-                var tr = btn.closest('tr');
-                tr.querySelectorAll('.editfield').forEach(function(el){ el.style.display='none'; });
-                tr.querySelectorAll('.readonly').forEach(function(el){ el.style.display='inline'; });
-                tr.querySelector('.editBtn').style.display = 'inline';
-                tr.querySelector('.editForm').style.display = 'none';
-            };
+        $('.editBtn').click(function() {
+            var tr = $(this).closest('tr');
+            tr.find('.readonly').hide();
+            tr.find('.editfield').css('display', 'inline');
+            $(this).hide();
+            tr.find('.editForm').css('display', 'inline');
         });
-        document.querySelectorAll('.editForm').forEach(function(form){
-            form.onsubmit = function() {
-                var tr = form.closest('tr');
-                form.querySelector('.editName').value = tr.querySelector('input[name="name"]').value;
-                form.querySelector('.editDescription').value = tr.querySelector('input[name="description"]').value;
-                form.querySelector('.editPrice').value = tr.querySelector('input[name="price"]').value;
-            };
+        $('.cancelBtn').click(function() {
+            var tr = $(this).closest('tr');
+            tr.find('.editfield').hide();
+            tr.find('.readonly').css('display', 'inline');
+            tr.find('.editBtn').show();
+            tr.find('.editForm').hide();
         });
-        document.querySelectorAll('.deleteBtn').forEach(function(btn){
-            btn.onclick = function() {
-                var tr = btn.closest('tr');
-                var name = tr.querySelector('span.readonly').innerText;
-                if (confirm('Удалить услугу "' + name + '"? Это действие нельзя отменить!')) {
-                    btn.closest('form.deleteForm').submit();
-                }
-            };
+        $('.editForm').submit(function() {
+            var form = $(this);
+            var tr = form.closest('tr');
+            form.find('.editName').val(tr.find('input[name="name"]').val());
+            form.find('.editDescription').val(tr.find('input[name="description"]').val());
+            form.find('.editPrice').val(tr.find('input[name="price"]').val());
+        });
+        $('.deleteBtn').click(function() {
+            var btn = $(this);
+            var tr = btn.closest('tr');
+            var name = tr.find('span.readonly').text();
+            if (confirm('Удалить услугу "' + name + '"? Это действие нельзя отменить!')) {
+                btn.closest('form.deleteForm').submit();
+            }
+        });
+        $('#cancelAddBtn').click(function() {
+            $('#addServiceForm').hide();
+            $('#showAddServiceBtn').show();
         });
     </script>
+
 </#macro>
 <@display_page/>

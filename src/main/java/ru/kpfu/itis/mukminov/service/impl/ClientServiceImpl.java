@@ -1,8 +1,11 @@
 package ru.kpfu.itis.mukminov.service.impl;
 
 import ru.kpfu.itis.mukminov.dao.ClientDao;
+import ru.kpfu.itis.mukminov.dao.EquipmentDao;
+import ru.kpfu.itis.mukminov.dao.impl.EquipmentDaoImpl;
 import ru.kpfu.itis.mukminov.dto.ClientDto;
 import ru.kpfu.itis.mukminov.entity.Client;
+import ru.kpfu.itis.mukminov.entity.Equipment;
 import ru.kpfu.itis.mukminov.service.ClientService;
 import ru.kpfu.itis.mukminov.util.PasswordUtil;
 
@@ -13,9 +16,11 @@ import java.util.stream.Collectors;
 public class ClientServiceImpl implements ClientService {
 
     private final ClientDao clientDao;
+    private final EquipmentDao equipmentDao;
 
-    public ClientServiceImpl(ClientDao clientDao) {
+    public ClientServiceImpl(ClientDao clientDao, EquipmentDao equipmentDao) {
         this.clientDao = clientDao;
+        this.equipmentDao = equipmentDao;
     }
 
     @Override
@@ -102,6 +107,9 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void deleteClient(Long id) {
+        for (Equipment equipment: equipmentDao.findByClientId(id)) {
+            equipmentDao.delete(equipment.getId());
+        }
         clientDao.deleteById(id);
     }
 

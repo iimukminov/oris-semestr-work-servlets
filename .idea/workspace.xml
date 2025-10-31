@@ -9,22 +9,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee67491f-be1d-4ef3-ad2c-4e87fea6b3a4" name="Changes" comment="Fix: prevent double chain.doFilter() calls in authentication and authorization filters">
+    <list default="true" id="ee67491f-be1d-4ef3-ad2c-4e87fea6b3a4" name="Changes" comment="Implemented admin management features for requests, parts, services, and users (employees and clients)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dao/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dao/OrderDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dao/PartDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dao/PartDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/controller/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/controller/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/controller/admin/AdminOrdersServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/controller/admin/AdminOrdersServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dao/impl/OrderDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dao/impl/OrderDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dto/OrderClientDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dto/OrderClientDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dto/OrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/dto/OrderDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/entity/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/enums/Status.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/enums/Status.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/filter/AdminAuthorizationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/filter/AdminAuthorizationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/filter/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/filter/AuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/filter/StaffAuthorizationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/filter/StaffAuthorizationFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/listener/AppContextListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/listener/AppContextListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/service/ClientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/service/ClientService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/service/EmployeeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/service/EmployeeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/service/PartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/service/PartService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/service/impl/ClientServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/service/impl/ClientServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/service/impl/EmployeeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/service/impl/EmployeeServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/service/impl/OrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/service/impl/PartServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/service/impl/PartServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/orders.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/orders.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/parts.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/parts.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/services.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/services.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/users.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/users.ftl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/base.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/base.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/login.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/login.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/sign_up.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/sign_up.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,11 +114,11 @@
       <recent name="C:\Users\ilyam\IdeaProjects\semester-work-servlets-iimukminov\src\main\java" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ilyam\IdeaProjects\semester-work-servlets-iimukminov\src\main\webapp\WEB-INF\views\users" />
       <recent name="C:\Users\ilyam\IdeaProjects\semester-work-servlets-iimukminov\src\main\webapp\WEB-INF\views\order" />
       <recent name="C:\Users\ilyam\IdeaProjects\semester-work-servlets-iimukminov\src\main\webapp\WEB-INF\views" />
       <recent name="C:\Users\ilyam\IdeaProjects\semester-work-servlets-iimukminov\src\main\webapp\WEB-INF\ftl\admin" />
       <recent name="C:\Users\ilyam\IdeaProjects\semester-work-servlets-iimukminov\src\main\webapp\WEB-INF" />
-      <recent name="C:\Users\ilyam\IdeaProjects\semester-work-servlets-iimukminov\src\main\webapp" />
     </key>
   </component>
   <component name="RunManager" selected="Tomcat Server.Tomcat 9.0.109">
@@ -278,7 +287,9 @@
       <workItem from="1761663559120" duration="9484000" />
       <workItem from="1761685262141" duration="3737000" />
       <workItem from="1761715742786" duration="4423000" />
-      <workItem from="1761756093061" duration="17854000" />
+      <workItem from="1761756093061" duration="32062000" />
+      <workItem from="1761842512990" duration="204000" />
+      <workItem from="1761844045818" duration="20382000" />
     </task>
     <task id="LOCAL-00001" summary="git commit -m &quot;Add basic FTL pages for project initialization&#10;&#10;- Create authentication templates (login, sign_up)&#10;- Add base FTL template (base.ftl)&#10;- Configure Maven and servlet settings&#10;- Include CSS styles for pages&quot;">
       <option name="closed" value="true" />
@@ -504,7 +515,23 @@
       <option name="project" value="LOCAL" />
       <updated>1761685665219</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Update and extend admin panel functionality: added state management and improved usability for administration features">
+      <option name="closed" value="true" />
+      <created>1761780424719</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1761780424719</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Implemented admin management features for requests, parts, services, and users (employees and clients)">
+      <option name="closed" value="true" />
+      <created>1761781090609</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1761781090609</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -537,8 +564,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add ClientDao interface and ClientDaoImpl for database work" />
-    <MESSAGE value="Add EmployeeDao interface and EmployeeDaoImpl for database work" />
     <MESSAGE value="Add PasswordUtil and ConfigUtil for password hashing with salt" />
     <MESSAGE value="Add ClientService interface and ClientServiceImpl for work with ClientDao" />
     <MESSAGE value="Add EmployeeService interface and EmployeeServiceImpl for work with EmployeeDao" />
@@ -562,6 +587,8 @@
     <MESSAGE value="Add ServiceService interface and ServiceServiceImpl for work with ServiceDao" />
     <MESSAGE value="Add service initialization for EquipmentService, OrderService, PartService, ServiceService in AppContextListener and register in servlet context" />
     <MESSAGE value="Fix: prevent double chain.doFilter() calls in authentication and authorization filters" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix: prevent double chain.doFilter() calls in authentication and authorization filters" />
+    <MESSAGE value="Update and extend admin panel functionality: added state management and improved usability for administration features" />
+    <MESSAGE value="Implemented admin management features for requests, parts, services, and users (employees and clients)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented admin management features for requests, parts, services, and users (employees and clients)" />
   </component>
 </project>

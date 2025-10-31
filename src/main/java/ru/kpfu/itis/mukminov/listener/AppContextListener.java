@@ -51,7 +51,7 @@ public class AppContextListener implements ServletContextListener {
             ServiceDao serviceDao = new ServiceDaoImpl(dataSource);
 
 
-            ClientService clientService = new ClientServiceImpl(clientDao);
+            ClientService clientService = new ClientServiceImpl(clientDao, equipmentDao);
             EmployeeService employeeService = new EmployeeServiceImpl(employeeDao);
             EquipmentService equipmentService = new EquipmentServiceImpl(equipmentDao);
             OrderService orderService = new OrderServiceImpl(orderDao, employeeDao, clientDao, equipmentDao);

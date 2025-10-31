@@ -126,7 +126,7 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public List<Order> findByClientId(Long clientId) {
-        String sql = "SELECT repair_orders.* FROM repair_orders INNER JOIN equipment ON repair_orders.equipment_id = equipment.id WHERE equipment.client_id = ?";
+        String sql = "SELECT repair_orders.* FROM repair_orders INNER JOIN equipments ON repair_orders.equipment_id = equipments.id WHERE equipments.client_id = ?";
         List<Order> orders = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
