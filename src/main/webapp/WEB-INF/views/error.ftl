@@ -61,7 +61,7 @@
 <body>
 <div class="main-error">
     <h1>Упс! Ошибка <span class="error-block">${statusCode!'?'}</span></h1>
-    <a href="/sign-up" class="btn404">Вернуться на главную</a>
+    <a href="/login" class="btn404">Вернуться на главную</a>
 </div>
 </body>
 </html>

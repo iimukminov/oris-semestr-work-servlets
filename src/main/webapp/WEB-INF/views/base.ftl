@@ -57,11 +57,11 @@
             </#if>
         </nav>
     </header>
-    <main>
-        <@page_body/>
-    </main>
+
+    <@page_body/>
+
     <footer>
-        <p>&copy; 2025 Техно-Ремонт. Все права защищены.</p>
+        <p>&copy; 2025 Техно-Ремонт. Все права нарушены.</p>
     </footer>
     </body>
     </html>

@@ -2,10 +2,13 @@ package ru.kpfu.itis.mukminov.service.impl;
 
 import ru.kpfu.itis.mukminov.dao.ClientDao;
 import ru.kpfu.itis.mukminov.dao.EquipmentDao;
+import ru.kpfu.itis.mukminov.dao.OrderDao;
 import ru.kpfu.itis.mukminov.dao.impl.EquipmentDaoImpl;
+import ru.kpfu.itis.mukminov.dao.impl.OrderDaoImpl;
 import ru.kpfu.itis.mukminov.dto.ClientDto;
 import ru.kpfu.itis.mukminov.entity.Client;
 import ru.kpfu.itis.mukminov.entity.Equipment;
+import ru.kpfu.itis.mukminov.entity.Order;
 import ru.kpfu.itis.mukminov.service.ClientService;
 import ru.kpfu.itis.mukminov.util.PasswordUtil;
 
@@ -17,10 +20,12 @@ public class ClientServiceImpl implements ClientService {
 
     private final ClientDao clientDao;
     private final EquipmentDao equipmentDao;
+    private final OrderDao orderDao;
 
-    public ClientServiceImpl(ClientDao clientDao, EquipmentDao equipmentDao) {
+    public ClientServiceImpl(ClientDao clientDao, EquipmentDao equipmentDao,  OrderDao orderDao) {
         this.clientDao = clientDao;
         this.equipmentDao = equipmentDao;
+        this.orderDao = orderDao;
     }
 
     @Override
@@ -107,6 +112,9 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void deleteClient(Long id) {
+        for (Order order: orderDao.findByClientId(id)) {
+            orderDao.delete(order.getId());
+        }
         for (Equipment equipment: equipmentDao.findByClientId(id)) {
             equipmentDao.delete(equipment.getId());
         }

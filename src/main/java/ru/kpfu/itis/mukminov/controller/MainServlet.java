@@ -15,7 +15,12 @@ public class MainServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession httpSession = req.getSession();
         String userType = (String) httpSession.getAttribute("userType");
-        req.setAttribute("user", userType.equals("employee") ? req.getSession(false).getAttribute("employee") : req.getSession(false).getAttribute("client"));
+        if (userType != null) {
+            req.setAttribute("user", userType.equals("employee") ? req.getSession(false).getAttribute("employee") : req.getSession(false).getAttribute("client"));
+        } else {
+            req.setAttribute("user", null);
+        }
+
         req.getRequestDispatcher("/WEB-INF/views/dashboard.ftl").forward(req, resp);
     }
 }

@@ -38,16 +38,10 @@ public class StaffOrdersServlet extends HttpServlet {
         EmployeeDto staff = (EmployeeDto) req.getSession().getAttribute("employee");
 
         List<OrderDto> freeOrders = orderService.findAllOrderDto().stream()
-                .filter(o -> o.getTechnician() == null)
-                .toList();
-
-        freeOrders.sort(null);
+                .filter(o -> o.getTechnician() == null).sorted().collect(Collectors.toList());
 
         List<OrderDto> myOrders = orderService.findAllOrderDto().stream()
-                .filter(o -> o.getTechnician() != null && o.getTechnician().getId().equals(staff.getId()))
-                .toList();
-
-        myOrders.sort(null);
+                .filter(o -> o.getTechnician() != null && o.getTechnician().getId().equals(staff.getId())).sorted().collect(Collectors.toList());
 
         req.setAttribute("freeOrders", freeOrders);
         req.setAttribute("myOrders", myOrders);

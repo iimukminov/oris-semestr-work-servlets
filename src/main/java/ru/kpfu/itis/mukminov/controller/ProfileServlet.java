@@ -63,17 +63,23 @@ public class ProfileServlet extends HttpServlet {
         }
 
         String newPassword = req.getParameter("password");
+        String email = req.getParameter("email");
+
 
         try {
+            if (employeeService.isEmailTaken(email) || clientService.isEmailTaken(email)) {
+                throw new IllegalArgumentException("Эта почта уже занята");
+            }
             if ("client".equals(userType)) {
                 ClientDto client = (ClientDto) user;
+
 
                 clientService.updateClient(
                         client.getId(),
                         req.getParameter("name"),
                         req.getParameter("lastname"),
                         req.getParameter("phoneNumber"),
-                        req.getParameter("email"),
+                        email,
                         newPassword != null && !newPassword.isEmpty() ? newPassword : null
                 );
 
@@ -87,7 +93,7 @@ public class ProfileServlet extends HttpServlet {
                         employee.getId(),
                         req.getParameter("name"),
                         req.getParameter("lastname"),
-                        req.getParameter("email"),
+                        email,
                         employee.getRole(),
                         employee.getPosition(),
                         newPassword != null && !newPassword.isEmpty() ? newPassword : null

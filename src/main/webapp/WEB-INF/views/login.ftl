@@ -7,26 +7,29 @@
 </#macro>
 
 <#macro page_body>
-    <h2>Вход в систему</h2>
+    <main class="login-main">
+        <h2 class="login-title">Вход в систему</h2>
 
-    <#if error??>
-        <p style="color: red;">${error}</p>
-    </#if>
+        <#if error??>
+            <p class="login-error">${error}</p>
+        </#if>
 
-    <form action="/login" method="post">
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div>
-            <label for="password">Пароль:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <button type="submit">Войти</button>
-    </form>
-    <br><br>
-    <a href="/sign-up">Нет аккаунта?</a>
+        <form action="/login" method="post" class="login-form">
+            <div class="form-group">
+                <label class="form-label" for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="password">Пароль:</label>
+                <input type="password" id="password" name="password" class="form-input" required>
+            </div>
+            <button type="submit" class="btn-submit">Войти</button>
+        </form>
+        <br><br>
+        <a href="/sign-up" class="login-register-link">Нет аккаунта?</a>
+    </main>
 </#macro>
+
 
 <@display_page/>
 

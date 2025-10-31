@@ -9,7 +9,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee67491f-be1d-4ef3-ad2c-4e87fea6b3a4" name="Changes" comment="Add user views and servlets: dashboard, equipments,orders, profile; implement functionality for user equipment and orders management." />
+    <list default="true" id="ee67491f-be1d-4ef3-ad2c-4e87fea6b3a4" name="Changes" comment="Configure error and forbidden page routing in web.xml; add dashboard and profile views and controllers">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/controller/MainServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/controller/MainServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/controller/ProfileServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/controller/ProfileServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/controller/staff/StaffOrdersServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/controller/staff/StaffOrdersServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/filter/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/filter/AuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/listener/AppContextListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/listener/AppContextListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/service/impl/ClientServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/service/impl/ClientServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/orders.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/orders.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/parts.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/parts.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/services.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/services.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/users.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/users.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/base.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/base.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/dashboard.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/dashboard.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/error.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/error.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/login.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/login.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/profile.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/profile.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/sign_up.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/sign_up.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/staff/orders.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/staff/orders.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/staff/parts.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/staff/parts.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/staff/services.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/staff/services.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/staff/users.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/staff/users.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/equipments.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/equipments.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/orders.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/orders.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/styles.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -111,7 +137,7 @@
       </method>
     </configuration>
     <configuration name="Tomcat 9.0.109" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.109" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
-      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/login" />
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/dashboard" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="semester-work-servlets-iimukminov:war">
@@ -264,7 +290,8 @@
       <workItem from="1761715742786" duration="4423000" />
       <workItem from="1761756093061" duration="32062000" />
       <workItem from="1761842512990" duration="204000" />
-      <workItem from="1761844045818" duration="27813000" />
+      <workItem from="1761844045818" duration="42639000" />
+      <workItem from="1761938321836" duration="2458000" />
     </task>
     <task id="LOCAL-00001" summary="git commit -m &quot;Add basic FTL pages for project initialization&#10;&#10;- Create authentication templates (login, sign_up)&#10;- Add base FTL template (base.ftl)&#10;- Configure Maven and servlet settings&#10;- Include CSS styles for pages&quot;">
       <option name="closed" value="true" />
@@ -538,7 +565,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761922004999</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Configure error and forbidden page routing in web.xml; add dashboard and profile views and controllers">
+      <option name="closed" value="true" />
+      <created>1761922711002</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1761922711002</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -571,7 +606,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add LoginServlet for clients and employees authentication" />
     <MESSAGE value="Add LogoutServlet to handle user logout" />
     <MESSAGE value="Refactor Employee: change role from String to Role enum" />
     <MESSAGE value="Add EncodingFilter for UTF-8 request and response" />
@@ -596,6 +630,7 @@
     <MESSAGE value="Add ErrorServlet for centralized application error handling" />
     <MESSAGE value="Implemented staff management features for orders, parts, services, and users" />
     <MESSAGE value="Add user views and servlets: dashboard, equipments,orders, profile; implement functionality for user equipment and orders management." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add user views and servlets: dashboard, equipments,orders, profile; implement functionality for user equipment and orders management." />
+    <MESSAGE value="Configure error and forbidden page routing in web.xml; add dashboard and profile views and controllers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Configure error and forbidden page routing in web.xml; add dashboard and profile views and controllers" />
   </component>
 </project>

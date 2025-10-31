@@ -5,12 +5,13 @@
 </#macro>
 
 <#macro page_body>
-    <h2>Управление заявками</h2>
+    <div class="div-table-wrapper">
+    <h2 style="margin: 50px 0 20px">Управление заявками</h2>
     <#if error??>
         <div style="color:red;">${error}</div>
     </#if>
-    <div style="overflow-x:auto;">
-        <table id="ordersTable" class="pidor">
+
+        <table id="ordersTable" class="admin-orders-table">
             <thead>
             <tr>
                 <th>ID</th>
@@ -30,72 +31,57 @@
             <tbody>
             <#list orders as order>
                 <tr data-order-id="${order.id}">
-                    <td>${order.id}</td>
-                    <td>
-                        <#if order.client??>
-                            ${order.client.name} ${order.client.lastname}
-                        <#else>
-                            (клиент не найден)
-                        </#if>
+                    <td data-label="ID">${order.id}</td>
+                    <td data-label="Клиент">
+                        <#if order.client??>${order.client.name} ${order.client.lastname}<#else>(клиент не найден)</#if>
                     </td>
-                    <td>
-                        <#if order.equipment??>
-                            ${order.equipment.type} ${order.equipment.brand} ${order.equipment.model}
-                        <#else>
-                            (оборудование не найдено)
-                        </#if>
+                    <td data-label="Оборудование">
+                        <#if order.equipment??>${order.equipment.type} ${order.equipment.brand} ${order.equipment.model}
+                        <#else>(оборудование не найдено)</#if>
                     </td>
-                    <td>
-                    <span class="readonly">
-                        <#if order.technician??>
-                            ${order.technician.name} (${order.technician.position!})
-                        <#else>
-                            (не назначен)
-                        </#if>
-                    </span>
+                    <td data-label="Техник">
+                        <span class="readonly">
+                            <#if order.technician??>${order.technician.name} (${order.technician.position!})<#else>(не назначен)</#if>
+                        </span>
                         <select class="editfield" name="employeeId" style="display:none;">
                             <option value="">(не назначен)</option>
                             <#list employees as emp>
-                                <option value="${emp.id}"<#if order.technician?? && order.technician.id == emp.id> selected</#if>>
+                                <option value="${emp.id}"
+                                        <#if order.technician?? && order.technician.id == emp.id>selected</#if>>
                                     ${emp.name} (${emp.position!}) [${emp.role}]
                                 </option>
                             </#list>
                         </select>
                     </td>
-                    <td>
+                    <td data-label="Статус">
                         <span class="readonly">${order.status}</span>
                         <select class="editfield" name="status" style="display:none;">
-                            <option value="NEW"<#if order.status=="NEW"> selected</#if>>NEW</option>
-                            <option value="IN_PROGRESS"<#if order.status=="IN_PROGRESS"> selected</#if>>IN_PROGRESS
+                            <option value="NEW" <#if order.status=="NEW">selected</#if>>NEW</option>
+                            <option value="IN_PROGRESS" <#if order.status=="IN_PROGRESS">selected</#if>>IN_PROGRESS
                             </option>
-                            <option value="COMPLETED"<#if order.status=="COMPLETED"> selected</#if>>COMPLETED</option>
+                            <option value="COMPLETED" <#if order.status=="COMPLETED">selected</#if>>COMPLETED</option>
                         </select>
                     </td>
-                    <td>
+                    <td data-label="Описание">
                         <span class="readonly">${order.description!}</span>
                         <input type="text" class="editfield" name="description" value="${order.description!}"
                                style="display:none;">
                     </td>
-                    <td>${order.createdAt!}</td>
-                    <td>
-                    <span class="readonly">
-                        <#if order.completedAt?? && order.completedAt?has_content>
-                            ${order.completedAt}
-                        <#else>
-                            Не выполнено
-                        </#if>
-                    </span>
+                    <td data-label="Создана">${order.createdAt!}</td>
+                    <td data-label="Завершено">
+                        <span class="readonly">
+                            <#if order.completedAt?? && order.completedAt?has_content>
+                                ${order.completedAt}
+                            <#else>Не выполнено</#if>
+                        </span>
                         <input type="datetime-local" class="editfield" name="completedAt"
                                value="${order.completedAt!"Не выполнено"}" style="display:none;">
                     </td>
-
-                    <td>
-                    <span class="readonly">
-                        <#list order.services as service>
-                            <div>${service.name}</div>
-                        </#list>
-                    </span>
-
+                    <td data-label="Услуги">
+                        <span class="readonly">
+                            <#list order.services as service>
+                                <div>${service.name}</div></#list>
+                        </span>
                         <div class="editfield" style="display:none;">
                             <#list services as serviceOption>
                                 <label>
@@ -110,14 +96,11 @@
                             </#list>
                         </div>
                     </td>
-
-                    <td>
-                    <span class="readonly">
-                        <#list order.parts as partQuantity>
-                            <div>${partQuantity.part.name}: ${partQuantity.quantity}</div>
-                        </#list>
-                    </span>
-
+                    <td data-label="Запчасти и количество">
+                        <span class="readonly">
+                            <#list order.parts as partQuantity>
+                                <div>${partQuantity.part.name}: ${partQuantity.quantity}</div></#list>
+                        </span>
                         <div class="editfield" style="display:none;">
                             <#list parts as partOption>
                                 <label>
@@ -137,10 +120,8 @@
                             </#list>
                         </div>
                     </td>
-
-                    <td>${order.price!} ₽</td>
-
-                    <td>
+                    <td data-label="Сумма">${order.price!} ₽</td>
+                    <td data-label="Действия">
                         <button type="button" class="editBtn">Редактировать</button>
                         <form action="/admin/orders" method="post" class="editForm" style="display:none; margin:0;">
                             <input type="hidden" name="action" value="edit">
@@ -165,6 +146,7 @@
             </tbody>
         </table>
     </div>
+
     <script>
         $(document).ready(function () {
             $('.editBtn').on('click', function () {
@@ -210,7 +192,7 @@
             $('.deleteBtn').on('click', function () {
                 var $tr = $(this).closest('tr');
                 var name = $tr.find('span.readonly').first().text();
-                if (confirm('Удалить заявку "' + name + '"? Это действие нельзя отменить!')) {
+                if (confirm('Удалить заявку? Это действие нельзя отменить!')) {
                     $(this).closest('form.deleteForm').submit();
                 }
             });

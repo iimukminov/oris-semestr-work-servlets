@@ -5,34 +5,35 @@
 </#macro>
 
 <#macro page_body>
-    <h2>Управление заявками</h2>
+    <main>
+        <h2>Управление заявками</h2>
 
-<#if error??>
-    <div style="color:red; margin-bottom: 1em;">${error}</div>
-</#if><br>
+        <#if error??>
+        <div style="color:red; margin-bottom: 1em;">${error}</div>
+        </#if><br>
 
-    <button id="showAddFormBtn" type="button">+ Создать заявку</button>
-    <form id="addForm" action="/user/orders" method="post" style="display:none; margin-top:15px;">
-        <input type="hidden" name="action" value="add">
-        <div>
-            <label>Оборудование:</label>
-            <select name="equipmentId" required>
-                <option value="">Выберите оборудование</option>
-                <#list userEquipments as equipment>
-                    <option value="${equipment.id}">${equipment.type} ${equipment.brand} ${equipment.model}</option>
-                </#list>
-            </select>
-        </div>
-        <div>
-            <label>Описание:</label>
-            <input type="text" name="description" maxlength="255" required>
-        </div>
-        <button type="submit">Создать</button>
-        <button type="button" id="cancelAddBtn">Отмена</button>
-    </form>
-
-    <div style="overflow-x:auto; margin-top: 1.5em;">
-        <table id="ordersTable" class="user-orders" style="width: 100%;">
+        <button id="showAddFormBtn" type="button">+ Создать заявку</button>
+        <form id="addForm" action="/user/orders" method="post" style="display:none; margin-top:15px;">
+            <input type="hidden" name="action" value="add">
+            <div>
+                <label>Оборудование:</label>
+                <select name="equipmentId" required>
+                    <option value="">Выберите оборудование</option>
+                    <#list userEquipments as equipment>
+                        <option value="${equipment.id}">${equipment.type} ${equipment.brand} ${equipment.model}</option>
+                    </#list>
+                </select>
+            </div>
+            <div>
+                <label>Описание:</label>
+                <input type="text" name="description" maxlength="255" required>
+            </div>
+            <button type="submit">Создать</button>
+            <button type="button" id="cancelAddBtn">Отмена</button>
+        </form>
+    </main>
+    <div class="div-table-wrapper" style="margin-top: 1.5em;">
+        <table id="ordersTable" class="user-orders-table" style="width: 100%;">
             <thead>
             <tr>
                 <th>Оборудование</th>
@@ -49,52 +50,45 @@
             <tbody>
             <#list orders as order>
                 <tr data-order-id="${order.id}">
-                    <td>
-                        <#if order.equipment??>
-                            ${order.equipment.type} ${order.equipment.brand} ${order.equipment.model}
-                        <#else>
-                            (оборудование не найдено)
+                    <td data-label="Оборудование">
+                        <#if order.equipment??>${order.equipment.type} ${order.equipment.brand} ${order.equipment.model}
+                        <#else>(оборудование не найдено)</#if>
+                    </td>
+                    <td data-label="Статус">
+                        <#if order.status == "NEW">Новая. Свяжитесь с нами в телеграмм для согласования
+                        <#elseif order.status == "IN_PROGRESS">В процессе
+                        <#else>Завершена
                         </#if>
                     </td>
-                    <td><#if order.status == "NEW">
-                            Новая. Свяжитесь с нами в телеграмм для согласования
-                        <#elseif order.status == "IN_PROGRESS">
-                            В процессе
-                        <#else >
-                            Завершена
-                        </#if></td>
-                    <td>
+                    <td data-label="Описание">
                         <#if order.status == "NEW">
                             <span class="readonly">${order.description!}</span>
                             <input type="text" class="editfield" name="description" value="${order.description!}"
-                                   maxlength="255" style="display: none">
+                                   maxlength="255" style="display:none;">
                         <#else>
                             <span>${order.description!}</span>
                         </#if>
                     </td>
-                    <td>${order.createdAt!}</td>
-                    <td>
-                        <#if order.completedAt??>
-                            ${order.completedAt}
-                        <#else>
-                            Не выполнено
+                    <td data-label="Создана">${order.createdAt!}</td>
+                    <td data-label="Завершено">
+                        <#if order.completedAt??>${order.completedAt}
+                        <#else>Не выполнено
                         </#if>
                     </td>
-                    <td>
+                    <td data-label="Услуги">
                         <#list order.services as service>
-                            <div>${service.name}</div>
-                        </#list>
+                            <div>${service.name}</div></#list>
                     </td>
-                    <td>
+                    <td data-label="Запчасти и количество">
                         <#list order.parts as partQuantity>
-                            <div>${partQuantity.part.name}: ${partQuantity.quantity}</div>
-                        </#list>
+                            <div>${partQuantity.part.name}: ${partQuantity.quantity}</div></#list>
                     </td>
-                    <td><#if order.totalCost??>${order.totalCost} ₽</#if></td>
-                    <td>
+                    <td data-label="Сумма"><#if order.totalCost??>${order.totalCost} ₽</#if></td>
+                    <td data-label="Действия">
                         <#if order.status == "NEW">
                             <button type="button" class="editBtn">Редактировать описание</button>
-                            <form action="/user/orders" method="post" class="editForm" style="display:none; margin:0;">
+                            <form action="/user/orders" method="post" class="editForm"
+                                  style="display:none; margin:0;">
                                 <input type="hidden" name="action" value="editDescription">
                                 <input type="hidden" name="orderId" value="${order.id}">
                                 <input type="hidden" class="editDescriptionInput" name="description">
@@ -107,16 +101,13 @@
                                 <input type="hidden" name="orderId" value="${order.id}">
                                 <button type="button" class="deleteBtn" style="color:red;">Удалить</button>
                             </form>
-                        <#else>
-                            —
-                        </#if>
+                        <#else>—</#if>
                     </td>
                 </tr>
             </#list>
             </tbody>
         </table>
     </div>
-
     <script>
         $(document).ready(function () {
             $('#showAddFormBtn').click(function () {
