@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/sign-up", loadOnStartup = 1)
+@WebServlet(urlPatterns = "/sign-up")
 public class SignUpServlet extends HttpServlet {
 
     private ClientService clientService;

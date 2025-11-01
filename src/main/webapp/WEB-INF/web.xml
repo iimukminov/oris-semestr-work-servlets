@@ -19,7 +19,6 @@
         </init-param>
     </servlet>
 
-
     <error-page>
         <error-code>404</error-code>
         <location>/error</location>
@@ -33,6 +32,16 @@
     <error-page>
         <location>/error</location>
     </error-page>
+
+    <servlet>
+        <servlet-name>MainServlet</servlet-name>
+        <servlet-class>ru.kpfu.itis.mukminov.controller.MainServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>MainServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>freemarker</servlet-name>

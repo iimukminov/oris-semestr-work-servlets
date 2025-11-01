@@ -11,6 +11,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ee67491f-be1d-4ef3-ad2c-4e87fea6b3a4" name="Changes" comment="Fixed bug: when unchecking used parts, the quantity in stock was not returned.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/controller/SignUpServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/kpfu/itis/mukminov/controller/SignUpServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,38 +52,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.PasswordUtil.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.semester-work-servlets-iimukminov [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.semester-work-servlets-iimukminov [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.semestr-work-servlets-iimukminov [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.semestr-work-servlets-iimukminov [package].executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;Tomcat Server.Tomcat 9.0.109.executor&quot;: &quot;Run&quot;,
-    &quot;com.intellij.ide.FileNotInSourceRootChecker.no.check&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ilyam/IdeaProjects/semester-work-servlets-iimukminov/src/main/webapp/WEB-INF/views/staff&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.Mappings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.PasswordUtil.executor": "Run",
+    "Maven.semester-work-servlets-iimukminov [clean].executor": "Run",
+    "Maven.semester-work-servlets-iimukminov [package].executor": "Run",
+    "Maven.semestr-work-servlets-iimukminov [clean].executor": "Run",
+    "Maven.semestr-work-servlets-iimukminov [package].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Tomcat Server.Tomcat 9.0.109.executor": "Run",
+    "com.intellij.ide.FileNotInSourceRootChecker.no.check": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/ilyam/IdeaProjects/semester-work-servlets-iimukminov/src/main/webapp/WEB-INF/views/staff",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "project.propVCSSupport.Mappings",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="ru.kpfu.itis.mukminov.dao" />
@@ -268,7 +270,8 @@
       <workItem from="1761842512990" duration="204000" />
       <workItem from="1761844045818" duration="42639000" />
       <workItem from="1761938321836" duration="6873000" />
-      <workItem from="1761949827471" duration="3928000" />
+      <workItem from="1761949827471" duration="4615000" />
+      <workItem from="1761961185918" duration="1456000" />
     </task>
     <task id="LOCAL-00001" summary="git commit -m &quot;Add basic FTL pages for project initialization&#10;&#10;- Create authentication templates (login, sign_up)&#10;- Add base FTL template (base.ftl)&#10;- Configure Maven and servlet settings&#10;- Include CSS styles for pages&quot;">
       <option name="closed" value="true" />
@@ -566,7 +569,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761953429210</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Fixed bug: when unchecking used parts, the quantity in stock was not returned.">
+      <option name="closed" value="true" />
+      <created>1761954816283</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1761954816283</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
