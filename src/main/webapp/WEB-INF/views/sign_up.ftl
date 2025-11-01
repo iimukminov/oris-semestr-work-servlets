@@ -25,20 +25,21 @@
             </div>
             <div class="form-group">
                 <label class="form-label" for="email">Email:</label>
-                <input type="email" id="email" name="email" class="form-input" required>
+                <input type="email" id="email" name="email" class="form-input" required maxlength="64">
                 <div id="email-error-msg" ></div>
             </div>
             <div class="form-group">
                 <label class="form-label" for="phone">Телефон (необязательно):</label>
-                <input type="tel" id="phone" name="phone_number" class="form-input">
+                <input type="tel" id="phone" name="phone_number" class="form-input" maxlength="11">
+                <div id="phone-error-msg"></div>
             </div>
             <div class="form-group">
                 <label class="form-label" for="password">Пароль:</label>
-                <input type="password" id="password" name="password" class="form-input" required>
+                <input type="password" id="password" name="password" class="form-input" required maxlength="32">
             </div>
             <div class="form-group">
                 <label class="form-label" for="password_confirm">Подтвердите пароль:</label>
-                <input type="password" id="password_confirm" name="password_confirm" class="form-input" required>
+                <input type="password" id="password_confirm" name="password_confirm" class="form-input" required maxlength="32">
             </div>
             <button type="submit" class="btn-submit" id="submit-btn">Зарегистрироваться</button>
         </form>
@@ -49,31 +50,40 @@
     <script>
         $(document).ready(function() {
             var emailPattern = /^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*(aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z]{2})$/;
+            var phonePattern = /^\+?[0-9\s\-]{0,11}$/;
 
-            function checkEmail() {
+            function validateForm() {
                 var email = $('#email').val().toLowerCase();
-                var $msg = $('#email-error-msg');
-                var isValid = emailPattern.test(email);
+                var phone = $('#phone').val();
+                var $emailMsg = $('#email-error-msg');
+                var $phoneMsg = $('#phone-error-msg');
+
+                var emailValid = emailPattern.test(email);
+                var phoneValid = phone.length === 0 || phonePattern.test(phone);
 
                 if (email.length === 0) {
-                    $msg.text('');
-                    $('#submit-btn').prop('disabled', true);
-                    return;
+                    $emailMsg.text('');
+                } else if (!emailValid) {
+                    $emailMsg.text('Пожалуйста, введите корректный email.');
+                    $emailMsg.css('color', '#e53935');
+                } else {
+                    $emailMsg.text('');
                 }
 
-                if (!isValid) {
-                    $msg.text('Пожалуйста, введите корректный email.');
-                    $msg.css('color', '#e53935');
-                    $('#submit-btn').prop('disabled', true);
+                if (!phoneValid) {
+                    $phoneMsg.text('Пожалуйста, введите корректный телефон.');
+                    $phoneMsg.css('color', '#e53935');
                 } else {
-                    $msg.text('');
-                    $('#submit-btn').prop('disabled', false);
+                    $phoneMsg.text('');
                 }
+
+                $('#submit-btn').prop('disabled', !(emailValid && phoneValid));
             }
 
-            $('#email').on('input', checkEmail);
+            $('#email').on('input', validateForm);
+            $('#phone').on('input', validateForm);
 
-            checkEmail();
+            validateForm();
         });
     </script>
 

@@ -21,7 +21,7 @@
                 <label>Фамилия:<input type="text" name="lastname" required></label><br>
                 <label>Email:<input type="email" name="email" required></label><br>
                 <label>Телефон:<input type="text" name="phoneNumber"></label><br>
-                <label>Пароль:<input type="password" name="password" required></label><br>
+                <label>Пароль:<input type="password" name="password" required maxlength="32"></label><br>
                 <button type="submit">Сохранить</button>
                 <button type="button" id="cancelAddClientBtn">Отмена</button>
 

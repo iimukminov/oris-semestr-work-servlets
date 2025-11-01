@@ -33,16 +33,6 @@
         <location>/error</location>
     </error-page>
 
-    <servlet>
-        <servlet-name>MainServlet</servlet-name>
-        <servlet-class>ru.kpfu.itis.mukminov.controller.MainServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>MainServlet</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>freemarker</servlet-name>
         <url-pattern>*.ftl</url-pattern>

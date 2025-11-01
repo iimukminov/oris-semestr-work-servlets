@@ -17,11 +17,11 @@
         <form action="/login" method="post" class="login-form">
             <div class="form-group">
                 <label class="form-label" for="email">Email:</label>
-                <input type="email" id="email" name="email" class="form-input" required>
+                <input type="email" id="email" name="email" class="form-input" required maxlength="64">
             </div>
             <div class="form-group">
                 <label class="form-label" for="password">Пароль:</label>
-                <input type="password" id="password" name="password" class="form-input" required>
+                <input type="password" id="password" name="password" class="form-input" required maxlength="32">
             </div>
             <button type="submit" class="btn-submit">Войти</button>
         </form>

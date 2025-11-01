@@ -9,22 +9,23 @@
         <h2>Профиль пользователя</h2>
         <form action="/profile" method="post" id="profileForm">
             <label>Имя:<br>
-                <input type="text" name="name" value="${user.name!}" required>
+                <input type="text" name="name" value="${user.name!}" required maxlength="64">
             </label><br><br>
 
             <label>Фамилия:<br>
-                <input type="text" name="lastname" value="${user.lastname!}" required>
+                <input type="text" name="lastname" value="${user.lastname!}" required maxlength="32">
             </label><br><br>
 
             <label>Email:<br>
-                <input type="email" id="email" name="email" class="form-input" value="${user.email!}" required>
+                <input type="email" id="email" name="email" class="form-input" value="${user.email!}" required maxlength="32">
                 <div id="email-error-msg"></div>
             </label><br>
 
             <#if userType == "client">
                 <label>Телефон:<br>
                     <input type="text" name="phoneNumber" value="${user.phoneNumber!}"
-                           placeholder="Введите номер телефона">
+                           placeholder="Введите номер телефона" maxlength="15">
+                    <div id="phone-error-msg"></div>
                 </label><br><br>
             </#if>
 
@@ -37,7 +38,7 @@
             </#if>
 
             <label>Новый пароль:<br>
-                <input type="password" name="password" id="newPassword" placeholder="Введите новый пароль">
+                <input type="password" name="password" id="newPassword" placeholder="Введите новый пароль" maxlength="32">
             </label><br><br>
 
             <button type="submit" id="submit-btn" >Сохранить изменения</button>
@@ -47,31 +48,40 @@
     <script>
         $(document).ready(function() {
             var emailPattern = /^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*(aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z]{2})$/;
+            var phonePattern = /^\+?[0-9\s\-]{0,11}$/;
 
-            function checkEmail() {
+            function validateForm() {
                 var email = $('#email').val().toLowerCase();
-                var $msg = $('#email-error-msg');
-                var isValid = emailPattern.test(email);
+                var phone = $('#phone').val();
+                var $emailMsg = $('#email-error-msg');
+                var $phoneMsg = $('#phone-error-msg');
+
+                var emailValid = emailPattern.test(email);
+                var phoneValid = phone.length === 0 || phonePattern.test(phone);
 
                 if (email.length === 0) {
-                    $msg.text('Пожалуйста, введите корректный email.');
-                    $('#submit-btn').prop('disabled', true);
-                    return;
+                    $emailMsg.text('');
+                } else if (!emailValid) {
+                    $emailMsg.text('Пожалуйста, введите корректный email.');
+                    $emailMsg.css('color', '#e53935');
+                } else {
+                    $emailMsg.text('');
                 }
 
-                if (!isValid) {
-                    $msg.text('Пожалуйста, введите корректный email.');
-                    $msg.css('color', '#e53935');
-                    $('#submit-btn').prop('disabled', true);
+                if (!phoneValid) {
+                    $phoneMsg.text('Пожалуйста, введите корректный телефон.');
+                    $phoneMsg.css('color', '#e53935');
                 } else {
-                    $msg.text('');
-                    $('#submit-btn').prop('disabled', false);
+                    $phoneMsg.text('');
                 }
+
+                $('#submit-btn').prop('disabled', !(emailValid && phoneValid));
             }
 
-            $('#email').on('input', checkEmail);
+            $('#email').on('input', validateForm);
+            $('#phone').on('input', validateForm);
 
-            checkEmail();
+            validateForm();
         });
     </script>
 
